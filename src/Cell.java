@@ -9,6 +9,7 @@ class Cell extends Ellipse{
 	private int player;
 	private Translate pos;
 	private Cell[] others = new Cell[6];
+	//Ellipse shape;
 	
 	public Cell(int x, int y) {
 		player = -1;
@@ -16,9 +17,9 @@ class Cell extends Ellipse{
 	
 		//e = new Ellipse();
 		//getChildren().addAll(e);
-		this.getTransforms().add(pos);
-		this.setStroke(Color.BLACK);
-		this.setFill(Color.LIGHTGRAY);
+		this.getTransforms().add(pos); //shape.
+		this.setStroke(Color.BLACK); //shape.
+		this.setFill(Color.LIGHTGRAY); //shape.
 		
 	}
 	
@@ -35,8 +36,9 @@ class Cell extends Ellipse{
 	public void resize(double width, double height){
 		super.resize(width,  height);
 
-		this.setCenterX(width / 2); this.setCenterY(height / 2);
-		this.setRadiusX(width / 2); this.setRadiusY(height / 2);
+		double val = 0.7;
+		this.setCenterX(width * val); this.setCenterY(height * val); //shape.
+		this.setRadiusX(width * val); this.setRadiusY(height * val); //shape.
 
 	}
 	

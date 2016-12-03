@@ -64,9 +64,28 @@ class AbaloneBoard extends Pane {
 		getChildren().addAll(back, h1, h2, v1, v2);*/
 		this.current_player = 0;
 
+		Polygon hexagon = new Polygon();
+		Double a, b, c;
+		a = 100.0;
+		b = 160.0;
+		c = 200.0;
+		
+		hexagon.setFill(Color.DARKRED);
+        hexagon.setStroke(Color.DARKRED);
+		
+		hexagon.getPoints().addAll(new Double[]{
+		    0.0, b,
+		    a, 0.0,
+		    a + c, 0.0,
+		    2 * c, b,
+		    a + c, 2 * b,
+		    a, 2 * b});
+        this.getChildren().add(hexagon);
+        
 		int size_line = 5;
 		int count = 1;
 		
+		// add cells to board
 		for(int i = 0; i < 9; i++) {
 			for(int j = 0; j < size_line; j++) {
 				board[i][j] = new Cell(i+10, j+50);
@@ -76,7 +95,7 @@ class AbaloneBoard extends Pane {
 				count *= -1;
 			size_line += count;
 		}
-		
+
 		// reinit
 		size_line = 5;
 		count = 1;
@@ -148,19 +167,19 @@ class AbaloneBoard extends Pane {
 		int save;
 		int x, y;
 		
-		x = 45; y = 15;
+		x = 50; y = 5;
 		for(int i = 0; i < 9; i++) {
 			save = x;
 			for(int j = 0; j < size_line; j++) {
 				board[i][j].relocate(x, y);
 				board[i][j].resize(cell_width, cell_height);
-				x += 14;
+				x += 20; // space between cells of the same row
 			}
 			if (size_line == 9)
 				count *= -1;
 			size_line += count;
-			y += 10;
-			x = save - count * 6;
+			y += 18;
+			x = save - count * 10;
 		}
 		/*// get size of a cell
 		cell_width = width / 3.0;
