@@ -67,7 +67,7 @@ class AbaloneBoard extends Pane {
 		Polygon hexagon = new Polygon();
 		Double a, b, c;
 		a = 100.0;
-		b = 160.0;
+		b = 180.0;
 		c = 200.0;
 		
 		hexagon.setFill(Color.DARKRED);
@@ -122,11 +122,11 @@ class AbaloneBoard extends Pane {
 				}
 				else if (i == 4) { // middle line
 					if (j == 0)
-						board[i][j].addCellsAround(board[i-1][j], board[i][j+1], board[i+1][j+1], null, null, null);
+						board[i][j].addCellsAround(board[i-1][j], board[i][j+1], board[i+1][j], null, null, null);
 					else if (j == size_line - 1)
 						board[i][j].addCellsAround(null, null, null, board[i+1][j-1], board[i][j-1], board[i-1][j-1]);
 					else
-						board[i][j].addCellsAround(board[i-1][j], board[i][j+1], board[i+1][j+1], board[i+1][j], board[i][j-1], board[i-1][j-1]);
+						board[i][j].addCellsAround(board[i-1][j], board[i][j+1], board[i+1][j], board[i+1][j-1], board[i][j-1], board[i-1][j-1]);
 				}
 				else if (i == 8) { // last line
 					if (j == 0)
@@ -138,12 +138,11 @@ class AbaloneBoard extends Pane {
 				}
 				else { // i > 5 but not last line
 					if (j == 0)
-						if (j == 0)
-							board[i][j].addCellsAround(board[i-1][j+1], board[i][j+1], board[i+1][j], null, null, board[i-1][j]);
-						else if (j == size_line - 1)
-							board[i][j].addCellsAround(board[i-1][j+1], null, null, board[i+1][j-1], board[i][j-1], board[i-1][j]);
-						else
-							board[i][j].addCellsAround(board[i-1][j+1], board[i][j+1], board[i+1][j], board[i+1][j-1], board[i][j-1], board[i-1][j]);
+						board[i][j].addCellsAround(board[i-1][j+1], board[i][j+1], board[i+1][j], null, null, board[i-1][j]);
+					else if (j == size_line - 1)
+						board[i][j].addCellsAround(board[i-1][j+1], null, null, board[i+1][j-1], board[i][j-1], board[i-1][j]);
+					else
+						board[i][j].addCellsAround(board[i-1][j+1], board[i][j+1], board[i+1][j], board[i+1][j-1], board[i][j-1], board[i-1][j]);
 				}
 			}
 			if (size_line == 9)
