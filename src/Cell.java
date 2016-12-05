@@ -1,25 +1,43 @@
-import javafx.scene.Group;
+
+import javafx.event.EventHandler;
+import javafx.scene.control.Control;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.transform.Translate;
 
 class Cell extends Ellipse{
 
-	//private Ellipse e;
+	private Ellipse e;
 	private int player;
 	private Translate pos;
 	private Cell[] others = new Cell[6];
-	//Ellipse shape;
+	//private Ellipse shape;
 	
 	public Cell(int x, int y) {
 		player = -1;
 		pos = new Translate(x, y);
 	
-		//e = new Ellipse();
-		//getChildren().addAll(e);
+		e = this;
+
 		this.getTransforms().add(pos); //shape.
 		this.setStroke(Color.BLACK); //shape.
 		this.setFill(Color.LIGHTGRAY); //shape.
+		//getChildren().addAll(shape);
+		this.setOnMouseClicked(new EventHandler<MouseEvent>(){
+
+			@Override
+			public void handle(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				for(int i = 0; i < 6; i +=1)
+				{
+					others[i].setFill(Color.ALICEBLUE);
+				}
+			}
+			
+		});
+	
 		
 	}
 	
@@ -47,4 +65,5 @@ class Cell extends Ellipse{
 		super.relocate(x, y);
 		pos.setX(x); pos.setY(y);
 	}
+	
 }

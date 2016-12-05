@@ -43,4 +43,7 @@ class Piece extends Group {
 		super.relocate(x, y);
 		pos.setX(x); pos.setY(y);
 	}
+	
+
+	
 }
