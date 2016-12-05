@@ -32,7 +32,8 @@ class Cell extends Ellipse{
 				// TODO Auto-generated method stub
 				for(int i = 0; i < 6; i +=1)
 				{
-					others[i].setFill(Color.ALICEBLUE);
+					if(others[i] != null)
+						others[i].setFill(Color.ALICEBLUE);
 				}
 			}
 			
