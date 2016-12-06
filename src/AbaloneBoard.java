@@ -23,9 +23,11 @@ class AbaloneBoard extends Pane {
 	private int current_player;
 	private double cell_width, cell_height;
 	private Polygon board_shape;
+	private GameLogic game;
 	
 	public AbaloneBoard(){
 		this.current_player = 0;
+		game = new GameLogic();
 
 		Polygon hexagon = new Polygon();
 		Double a, b, c;
@@ -52,7 +54,7 @@ class AbaloneBoard extends Pane {
 		// add cells to board
 		for(int i = 0; i < 9; i++) {
 			for(int j = 0; j < size_line; j++) {
-				board[i][j] = new Cell(i, j);
+				board[i][j] = new Cell(game, i, j);
 				this.getChildren().add(board[i][j]);
 			}
 			if (size_line == 9)
@@ -60,10 +62,10 @@ class AbaloneBoard extends Pane {
 			size_line += count;
 		}
 
-		// reinit
-		size_line = 5;
-		count = 1;
-		// ** link cells between each other
+		linkCells(5, 1);
+	}
+	
+	private void linkCells(int size_line, int count) {
 		for(int i = 0; i < 9; i++) {
 			for(int j = 0; j < size_line; j++) {
 				System.out.println("i;j=" + i + ";" + j);
@@ -113,8 +115,22 @@ class AbaloneBoard extends Pane {
 				count *= -1;
 			size_line += count;
 		}
-		
-		//this.getChildren().add(board);
+	}
+	
+	private void placeAllPieces(int nbPlayer) {
+		int player = 1;
+
+		int size_line = 5;
+		int count = 1;
+		for(int i = 0; i < 9; i++) {
+			for(int j = 0; j < size_line; j++) {
+				board[i][j] = new Cell(game, i, j);
+				this.getChildren().add(board[i][j]);
+			}
+			if (size_line == 9)
+				count *= -1;
+			size_line += count;
+		}
 	}
 	
 	@Override

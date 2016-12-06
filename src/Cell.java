@@ -9,14 +9,14 @@ import javafx.scene.transform.Translate;
 
 class Cell extends Ellipse{
 
-	//private Ellipse e;
 	private int player;
+	private GameLogic game;
 	private Translate pos;
 	private Cell[] others = new Cell[6];
 	private int[] boardPos = new int[2];
-	//private Ellipse shape;
 	
-	public Cell(int x, int y) {
+	public Cell(GameLogic gameL, int x, int y) {
+		game = gameL;
 		player = -1;
 		boardPos[0] = x;
 		boardPos[1] = y;
@@ -28,18 +28,19 @@ class Cell extends Ellipse{
 		this.setFill(Color.LIGHTGRAY); 
 		
 		double val = 0.7;
-		this.setCenterX(26 * val); this.setCenterY(26 * val); //shape.
+		this.setCenterX(26 * val); this.setCenterY(26 * val);
 		this.setRadiusX(26 * val); this.setRadiusY(26 * val);
 		
 		this.setOnMouseClicked(new EventHandler<MouseEvent>(){
 
 			@Override
 			public void handle(MouseEvent arg0) {
-				for(int i = 0; i < 6; i +=1)
+				game.click_occured(this);
+				/*for(int i = 0; i < 6; i +=1)
 				{
 					if(others[i] != null)
 						others[i].setFill(Color.ALICEBLUE);
-				}
+				}*/
 			}
 			
 		});
