@@ -60,7 +60,7 @@ class Cell extends Ellipse{
 	public void resize(double width, double height){
 		super.resize(width,  height);
 		
-		System.out.println("w:" + width + "; h:" + height);
+		//System.out.println("w:" + width + "; h:" + height);
 		/*double val = 0.7;
 		this.setCenterX(width * val); this.setCenterY(height * val); //shape.
 		this.setRadiusX(width * val); this.setRadiusY(height * val); //shape.*/
@@ -73,4 +73,20 @@ class Cell extends Ellipse{
 		pos.setX(x); pos.setY(y);
 	}
 	
+	public int getPlayer() {
+		return player;
+	}
+	
+	public void setPlayer(int p) {
+		player = p;
+	}
+	
+	public int[] getBoardPos(){
+		return boardPos;
+	}
+	
+	public void setBoardPos(int x, int y) {
+		boardPos[0] = x;
+		boardPos[1] = y;
+	}
 }

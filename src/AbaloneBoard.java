@@ -38,9 +38,9 @@ class AbaloneBoard extends Pane {
         hexagon.setStroke(Color.DARKRED);
 		
 		hexagon.getPoints().addAll(new Double[]{
-		    0.0, b,
-		    a, 0.0,
-		    a + c, 0.0,
+		    5.0, b,
+		    a, 10.0,
+		    a + c, 10.0,
 		    2 * c, b,
 		    a + c, 2 * b,
 		    a, 2 * b});
@@ -130,7 +130,7 @@ class AbaloneBoard extends Pane {
 		int save;
 		int x, y;
 		
-		x = 50; y = 5;
+		x = 51; y = 7;
 		for(int i = 0; i < 9; i++) {
 			save = x;
 			for(int j = 0; j < size_line; j++) {
@@ -141,31 +141,9 @@ class AbaloneBoard extends Pane {
 			if (size_line == 9)
 				count *= -1;
 			size_line += count;
-			y += 18;
-			x = save - count * 10;
+			y += 19; // space between rows
+			x = save - count * 10; // reinit the x pos with a tabulation
 		}
-		/*// get size of a cell
-		cell_width = width / 3.0;
-		cell_height = height / 3.0;
-		
-		// resize the rectangle to take the full size of the widget
-		back.setWidth(width); back.setHeight(height);
-		// set a new y on the horizontal lines and translate them into place
-		ch_one.setY(cell_height); ch_two.setY(2 * cell_height);
-		h1.setEndX(width); h2.setEndX(width);
-		// set a new x on the vertical lines and translate them into place
-		cw_one.setX(cell_width); cw_two.setX(2 * cell_width);
-		v1.setEndY(height); v2.setEndY(height);
-		
-		// we need to reset the sizes and positions of all XOPieces that were placed
-		for (int i = 0; i < 3; i++) {
-			for (int j = 0; j < 3; j++) {
-				if (board[i][j] != 0) {
-					renders[i][j].relocate(i * cell_width, j * cell_height);
-					renders[i][j].resize(cell_width, cell_height);
-				}
-			}
-		}*/
 	}
 	
 	public void resetGame() {
