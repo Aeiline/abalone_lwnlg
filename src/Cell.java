@@ -14,6 +14,7 @@ class Cell extends Ellipse{
 	private Translate pos;
 	private Cell[] others = new Cell[6];
 	private int[] boardPos = new int[2];
+	private Cell that;
 	
 	public Cell(GameLogic gameL, int x, int y) {
 		game = gameL;
@@ -22,6 +23,7 @@ class Cell extends Ellipse{
 		boardPos[1] = y;
 		pos = new Translate(x + 10, y + 15);
 		
+		that = this;
 
 		this.getTransforms().add(pos);
 		this.setStroke(Color.DARKRED);
@@ -35,7 +37,7 @@ class Cell extends Ellipse{
 
 			@Override
 			public void handle(MouseEvent arg0) {
-				game.click_occured(this);
+				game.click_occured(that);
 				/*for(int i = 0; i < 6; i +=1)
 				{
 					if(others[i] != null)
