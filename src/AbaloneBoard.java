@@ -25,9 +25,12 @@ class AbaloneBoard extends Pane {
 	private Polygon board_shape;
 	private GameLogic game;
 	
+	private Piece[][] pieces;
+	
 	public AbaloneBoard(){
-		this.current_player = 0;
+		current_player = 1;
 		game = new GameLogic();
+		pieces = new Piece[9][9];
 
 		Polygon hexagon = new Polygon();
 		Double a, b, c;
@@ -62,13 +65,16 @@ class AbaloneBoard extends Pane {
 			size_line += count;
 		}
 
+		this.resize(600, 400);
+		this.relocate(0, 0);
 		linkCells(5, 1);
+		placeAllPieces(2);
 	}
 	
 	private void linkCells(int size_line, int count) {
 		for(int i = 0; i < 9; i++) {
 			for(int j = 0; j < size_line; j++) {
-				System.out.println("i;j=" + i + ";" + j);
+				//System.out.println("i;j=" + i + ";" + j);
 				 // cells around clockwise
 				if (i == 0) { // first line
 					if (j == 0)
@@ -120,12 +126,42 @@ class AbaloneBoard extends Pane {
 	private void placeAllPieces(int nbPlayer) {
 		int player = 1;
 
+		Translate pos;
 		int size_line = 5;
 		int count = 1;
+		
 		for(int i = 0; i < 9; i++) {
 			for(int j = 0; j < size_line; j++) {
-				board[i][j] = new Cell(game, i, j);
-				this.getChildren().add(board[i][j]);
+				if (/*player == 1 &&*/ (i == 6 || i == 7 || i == 8)) {
+					player = 1;
+					if (i == 6 && (j == 0 || j == 1 || j == 5 || j == 6))
+						board[i][j].setPlayer(-1);
+					else {
+						board[i][j].setPlayer(player);
+						pieces[i][j] = new Piece(player);
+						//board[i][j].setPiece(pieces[i][j]);
+						pos = board[i][j].getPos();
+						//System.out.println("x: " + pos.getX() + "y: " + pos.getY());
+						pieces[i][j].relocate(pos.getX(), pos.getY());
+						pieces[i][j].resize(26, 26);
+						getChildren().add(pieces[i][j]);
+					}
+				}
+				else if (/*player == 2 &&*/ (i == 0 || i == 1 || i == 2)) {
+					player = 2;
+					if (i == 2 && (j == 0 || j == 1 || j == 5 || j == 6))
+						board[i][j].setPlayer(-1);
+					else {
+						board[i][j].setPlayer(player);
+						pieces[i][j] = new Piece(player);
+						//board[i][j].setPiece(pieces[i][j]);
+						pos = board[i][j].getPos();
+						//System.out.println("x: " + pos.getX() + "y: " + pos.getY());
+						pieces[i][j].relocate(pos.getX(), pos.getY());
+						pieces[i][j].resize(26, 26);
+						getChildren().add(pieces[i][j]);
+					}
+				}
 			}
 			if (size_line == 9)
 				count *= -1;

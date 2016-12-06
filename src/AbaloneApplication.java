@@ -17,6 +17,7 @@ public class AbaloneApplication extends Application {
 	public void start(Stage primaryStage){
 		primaryStage.setTitle("Abalone Game");
 		primaryStage.setScene(new Scene(sp_mainlayout, 650, 400));
+		primaryStage.setResizable(false);
 		primaryStage.show();
 	}
 	

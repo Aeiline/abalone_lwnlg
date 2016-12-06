@@ -11,8 +11,8 @@ class Piece extends Group {
 	private Color[] colors = new Color[6];
 	
 	public Piece(int player){
-		colors[0] = Color.PAPAYAWHIP;
-		colors[1] = Color.DIMGREY;
+		colors[0] = Color.DIMGREY;
+		colors[1] = Color.LIGHTGOLDENRODYELLOW;
 		colors[2] = Color.INDIANRED;
 		colors[3] = Color.ROYALBLUE;
 		colors[4] = Color.DARKORANGE;
@@ -25,16 +25,21 @@ class Piece extends Group {
 		e = new Ellipse();
 		getChildren().addAll(e);
 		e.getTransforms().add(pos);
-		e.setStroke(colors[player]);
+		e.setStroke(Color.LIGHTGRAY);
+		e.setFill(colors[player - 1]);
 
 	}
 	
 	@Override
 	public void resize(double width, double height){
 		super.resize(width,  height);
-
+/*
 		e.setCenterX(width / 2); e.setCenterY(height / 2);
-		e.setRadiusX(width / 2); e.setRadiusY(height / 2);
+		e.setRadiusX(width / 2); e.setRadiusY(height / 2);*/
+		
+		double val = 0.7;
+		e.setCenterX(width * val); e.setCenterY(height * val);
+		e.setRadiusX(width * val); e.setRadiusY(height * val);
 
 	}
 	
