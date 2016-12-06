@@ -25,43 +25,6 @@ class AbaloneBoard extends Pane {
 	private Polygon board_shape;
 	
 	public AbaloneBoard(){
-		/*// init the boards
-		board = new int[3][3];
-		renders = new Piece[3][3];
-		for (int i = 0; i < 3; i++)
-			for (int j = 0; j < 3; j++){
-				board[i][j] = EMPTY;
-				renders[i][j] = null;
-			}
-		current_player = XPIECE;
-		
-		// init the rectangle and lines
-		back = new Rectangle();
-		back.setFill(Color.BLACK);
-		h1 = new Line(); h2 = new Line();
-		v1 = new Line(); v2 = new Line();
-		h1.setStroke(Color.WHITE); h2.setStroke(Color.WHITE);
-		v1.setStroke(Color.WHITE); v2.setStroke(Color.WHITE);
-		
-
-		h1.setStartX(0); h1.setStartY(0); h1.setEndY(0);
-		h2.setStartX(0); h2.setStartY(0); h2.setEndY(0);
-
-		v1.setStartX(0); v1.setStartY(0); v1.setEndX(0);
-		v2.setStartX(0); v2.setStartY(0); v2.setEndX(0);
-		
-		// setup the translation of one cell height and two cell heights
-		ch_one = new Translate(0, 0);
-		ch_two = new Translate(0, 0);
-		h1.getTransforms().add(ch_one);
-		h2.getTransforms().add(ch_two);
-		// setup the translation of one cell width and two cell widths
-		cw_one = new Translate(0, 0);
-		cw_two = new Translate(0, 0);
-		v1.getTransforms().add(cw_one);
-		v2.getTransforms().add(cw_two);
-		
-		getChildren().addAll(back, h1, h2, v1, v2);*/
 		this.current_player = 0;
 
 		Polygon hexagon = new Polygon();
@@ -70,6 +33,7 @@ class AbaloneBoard extends Pane {
 		b = 180.0;
 		c = 200.0;
 		
+		// generate hexagon
 		hexagon.setFill(Color.DARKRED);
         hexagon.setStroke(Color.DARKRED);
 		
@@ -88,7 +52,7 @@ class AbaloneBoard extends Pane {
 		// add cells to board
 		for(int i = 0; i < 9; i++) {
 			for(int j = 0; j < size_line; j++) {
-				board[i][j] = new Cell(i+10, j+50);
+				board[i][j] = new Cell(i, j);
 				this.getChildren().add(board[i][j]);
 			}
 			if (size_line == 9)

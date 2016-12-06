@@ -9,27 +9,32 @@ import javafx.scene.transform.Translate;
 
 class Cell extends Ellipse{
 
-	private Ellipse e;
+	//private Ellipse e;
 	private int player;
 	private Translate pos;
 	private Cell[] others = new Cell[6];
+	private int[] boardPos = new int[2];
 	//private Ellipse shape;
 	
 	public Cell(int x, int y) {
 		player = -1;
-		pos = new Translate(x, y);
-	
-		e = this;
+		boardPos[0] = x;
+		boardPos[1] = y;
+		pos = new Translate(x + 10, y + 15);
+		
 
-		this.getTransforms().add(pos); //shape.
-		this.setStroke(Color.BLACK); //shape.
-		this.setFill(Color.LIGHTGRAY); //shape.
-		//getChildren().addAll(shape);
+		this.getTransforms().add(pos);
+		this.setStroke(Color.DARKRED);
+		this.setFill(Color.LIGHTGRAY); 
+		
+		double val = 0.7;
+		this.setCenterX(26 * val); this.setCenterY(26 * val); //shape.
+		this.setRadiusX(26 * val); this.setRadiusY(26 * val);
+		
 		this.setOnMouseClicked(new EventHandler<MouseEvent>(){
 
 			@Override
 			public void handle(MouseEvent arg0) {
-				// TODO Auto-generated method stub
 				for(int i = 0; i < 6; i +=1)
 				{
 					if(others[i] != null)
@@ -54,10 +59,11 @@ class Cell extends Ellipse{
 	@Override
 	public void resize(double width, double height){
 		super.resize(width,  height);
-
-		double val = 0.7;
+		
+		System.out.println("w:" + width + "; h:" + height);
+		/*double val = 0.7;
 		this.setCenterX(width * val); this.setCenterY(height * val); //shape.
-		this.setRadiusX(width * val); this.setRadiusY(height * val); //shape.
+		this.setRadiusX(width * val); this.setRadiusY(height * val); //shape.*/
 
 	}
 	
