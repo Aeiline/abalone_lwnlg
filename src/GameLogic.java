@@ -10,7 +10,7 @@ class GameLogic {
 		case_number = 1;
 		System.out.println("click_occured");
 		last_pos = clickedcell.getBoardPos(); 
-
+		System.out.println(clickedcell.getBoardPos()[0] + ";" + clickedcell.getBoardPos()[1]);
 		if (clickedcell.getPlayer() == -1)
 		{
 			print_case_free();
@@ -19,6 +19,7 @@ class GameLogic {
 		}
 		else
 		{
+			System.out.println(clickedcell.getPlayer());
 			System.out.println("not free");
 //			save_case();
 		clickedcell.setSelected();
