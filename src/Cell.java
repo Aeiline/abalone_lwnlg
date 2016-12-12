@@ -15,6 +15,9 @@ class Cell extends Ellipse{
 	private Cell[] others = new Cell[6];
 	private int[] boardPos = new int[2];
 	private Cell that;
+	//private Piece piece;
+	
+	private int width, height;
 	
 	public Cell(GameLogic gameL, int x, int y) {
 		game = gameL;
@@ -22,16 +25,20 @@ class Cell extends Ellipse{
 		boardPos[0] = x;
 		boardPos[1] = y;
 		pos = new Translate(x + 10, y + 15);
+		//piece = null;
 		
 		that = this;
 
+		width = 26;
+		height = 26;
+		
 		this.getTransforms().add(pos);
 		this.setStroke(Color.DARKRED);
 		this.setFill(Color.LIGHTGRAY); 
 		
 		double val = 0.7;
-		this.setCenterX(26 * val); this.setCenterY(26 * val);
-		this.setRadiusX(26 * val); this.setRadiusY(26 * val);
+		this.setCenterX(width * val); this.setCenterY(height * val);
+		this.setRadiusX(width * val); this.setRadiusY(height * val);
 		
 		this.setOnMouseClicked(new EventHandler<MouseEvent>(){
 
@@ -82,6 +89,17 @@ class Cell extends Ellipse{
 	
 	public void setPlayer(int p) {
 		player = p;
+	}
+	
+	/*public void setPiece(Piece p) {
+		piece = p;
+		//System.out.println("x,y: " + pos.getX() +"," + pos.getY());
+		piece.resize(width, height);
+		piece.relocate(pos.getX(), pos.getY());
+	}*/
+	
+	public Translate getPos() {
+		return pos;
 	}
 	
 	public int[] getBoardPos(){
