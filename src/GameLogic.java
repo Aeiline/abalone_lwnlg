@@ -2,7 +2,7 @@ class GameLogic {
 	
 	public GameLogic(AbaloneBoard board)
 	{
-		this.board = board
+		this.board = board;
 	}
 	
 	public void click_occured(Cell clickedcell)

@@ -32,7 +32,7 @@ class AbaloneBoard extends Pane {
 		game = new GameLogic(this);
 		pieces = new Piece[9][9];
 
-		game.setPlayer(current_player);
+		//game.setPlayer(current_player);
 		Polygon hexagon = new Polygon();
 		Double a, b, c;
 		a = 100.0;
