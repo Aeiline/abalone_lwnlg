@@ -68,7 +68,7 @@ class AbaloneBoard extends Pane {
 	private void linkCells(int size_line, int count) {
 		for(int i = 0; i < 9; i++) {
 			for(int j = 0; j < size_line; j++) {
-				System.out.println("i;j=" + i + ";" + j);
+				//System.out.println("i;j=" + i + ";" + j);
 				 // cells around clockwise
 				if (i == 0) { // first line
 					if (j == 0)
