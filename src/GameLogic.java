@@ -1,8 +1,5 @@
 class GameLogic {
 	
-	
-	//test si git est con ou pas
-	
 	public GameLogic()
 	{
 		
@@ -17,12 +14,14 @@ class GameLogic {
 		if (clickedcell.getPlayer() == -1)
 		{
 			print_case_free();
+			System.out.println("free");
 			//affichage des cases disponibles
 		}
-		else if (clickedcell.getPlayer() == player_turn)
+		else
 		{
-			save_case();
-			clickedcell.setSelected();
+			System.out.println("not free");
+//			save_case();
+		clickedcell.setSelected();
 			//tour joue
 		}
 	}
