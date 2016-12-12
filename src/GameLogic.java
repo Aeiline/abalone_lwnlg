@@ -1,5 +1,8 @@
 class GameLogic {
 	
+	
+	//test si git est con ou pas
+	
 	public GameLogic()
 	{
 		
