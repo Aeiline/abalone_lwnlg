@@ -8,7 +8,7 @@ class GameLogic {
 	public void click_occured(Cell clickedcell)
 	{
 		case_number = 1;
-		
+		System.out.println("click_occured");
 		last_pos = clickedcell.getBoardPos(); 
 
 		if (clickedcell.getPlayer() == -1)
@@ -19,7 +19,7 @@ class GameLogic {
 		else if (clickedcell.getPlayer() == player_turn)
 		{
 			save_case();
-	//TODO nolwenn		clickedcell.setSelected();
+			clickedcell.setSelected();
 			//tour joue
 		}
 	}

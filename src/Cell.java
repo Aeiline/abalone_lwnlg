@@ -57,6 +57,15 @@ class Cell extends Ellipse{
 		
 	}
 	
+	public void setSelected() {
+		this.setStroke(Color.INDIANRED);
+		System.out.println("Change stroke of cell");
+	}
+	
+	public void clicked() {
+		game.click_occured(that);
+	}
+	
 	public void addCellsAround(Cell o1, Cell o2,Cell o3, Cell o4,Cell o5, Cell o6) {
 		others[0] = o1;
 		others[1] = o2;
@@ -94,8 +103,6 @@ class Cell extends Ellipse{
 	/*public void setPiece(Piece p) {
 		piece = p;
 		//System.out.println("x,y: " + pos.getX() +"," + pos.getY());
-		piece.resize(width, height);
-		piece.relocate(pos.getX(), pos.getY());
 	}*/
 	
 	public Translate getPos() {

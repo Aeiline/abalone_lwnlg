@@ -1,4 +1,6 @@
+import javafx.event.EventHandler;
 import javafx.scene.Group;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.transform.Translate;
@@ -9,8 +11,9 @@ class Piece extends Group {
 	private Translate pos;
 	
 	private Color[] colors = new Color[6];
+	private Cell currentCell;
 	
-	public Piece(int player){
+	public Piece(int player, Cell initCell){
 		colors[0] = Color.DIMGREY;
 		colors[1] = Color.LIGHTGOLDENRODYELLOW;
 		colors[2] = Color.INDIANRED;
@@ -18,7 +21,7 @@ class Piece extends Group {
 		colors[4] = Color.DARKORANGE;
 		colors[5] = Color.DARKSEAGREEN;
 
-		
+		currentCell = initCell;
 		pos = new Translate();
 		//this.player = player;
 	
@@ -28,6 +31,32 @@ class Piece extends Group {
 		e.setStroke(Color.LIGHTGRAY);
 		e.setFill(colors[player - 1]);
 
+		this.setOnMouseClicked(new EventHandler<MouseEvent>(){
+
+			@Override
+			public void handle(MouseEvent arg0) {
+				currentCell.clicked();
+				/*for(int i = 0; i < 6; i +=1)
+				{
+					if(others[i] != null)
+						others[i].setFill(Color.ALICEBLUE);
+				}*/
+			}
+			
+		});
+	}
+
+	public void changeCell(Cell cell) {
+		this.currentCell = cell;
+	}
+
+	public Cell getCurrentCell() {
+		return this.currentCell;
+	}
+	
+	public void setSelected() {
+		e.setStroke(Color.DARKGREY);
+		System.out.println("Change stroke of piece");
 	}
 	
 	@Override

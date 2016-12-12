@@ -130,6 +130,7 @@ class AbaloneBoard extends Pane {
 		int size_line = 5;
 		int count = 1;
 		
+		// while player < nbPlayer
 		for(int i = 0; i < 9; i++) {
 			for(int j = 0; j < size_line; j++) {
 				if (/*player == 1 &&*/ (i == 6 || i == 7 || i == 8)) {
@@ -138,7 +139,7 @@ class AbaloneBoard extends Pane {
 						board[i][j].setPlayer(-1);
 					else {
 						board[i][j].setPlayer(player);
-						pieces[i][j] = new Piece(player);
+						pieces[i][j] = new Piece(player, board[i][j]);
 						//board[i][j].setPiece(pieces[i][j]);
 						pos = board[i][j].getPos();
 						//System.out.println("x: " + pos.getX() + "y: " + pos.getY());
@@ -153,7 +154,7 @@ class AbaloneBoard extends Pane {
 						board[i][j].setPlayer(-1);
 					else {
 						board[i][j].setPlayer(player);
-						pieces[i][j] = new Piece(player);
+						pieces[i][j] = new Piece(player, board[i][j]);
 						//board[i][j].setPiece(pieces[i][j]);
 						pos = board[i][j].getPos();
 						//System.out.println("x: " + pos.getX() + "y: " + pos.getY());
