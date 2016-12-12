@@ -58,7 +58,7 @@ class Cell extends Ellipse{
 	}
 	
 	public void setSelected() {
-		this.setStroke(Color.INDIANRED);
+		this.setStroke(Color.BLACK);
 		System.out.println("Change stroke of cell");
 	}
 	
