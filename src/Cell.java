@@ -44,7 +44,10 @@ class Cell extends Ellipse{
 
 			@Override
 			public void handle(MouseEvent arg0) {
+				// TODO check if control
 				game.click_occured(that);
+				
+				// if control game.click_control(that);
 				/*for(int i = 0; i < 6; i +=1)
 				{
 					if(others[i] != null)
@@ -55,6 +58,10 @@ class Cell extends Ellipse{
 		});
 	
 		
+	}
+	
+	public void setColor(Color c) {
+		this.setFill(c);
 	}
 	
 	public void setSelected() {
@@ -105,9 +112,9 @@ class Cell extends Ellipse{
 		//System.out.println("x,y: " + pos.getX() +"," + pos.getY());
 	}*/
 	
-	public Translate getPos() {
+	/*public Translate getPos() {
 		return pos;
-	}
+	}*/
 	
 	public int[] getBoardPos(){
 		return boardPos;

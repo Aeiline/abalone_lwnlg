@@ -6,14 +6,14 @@ import javafx.scene.shape.Ellipse;
 import javafx.scene.transform.Translate;
 
 class Piece extends Group {
-	private Ellipse e;
-	//private int player;
+	//private Ellipse e;
+	private int player;
 	private Translate pos;
 	
 	private Color[] colors = new Color[6];
 	private Cell currentCell;
 	
-	public Piece(int player, Cell initCell){
+	public Piece(int p, Cell initCell){
 		colors[0] = Color.DIMGREY;
 		colors[1] = Color.LIGHTGOLDENRODYELLOW;
 		colors[2] = Color.INDIANRED;
@@ -22,43 +22,41 @@ class Piece extends Group {
 		colors[5] = Color.DARKSEAGREEN;
 
 		currentCell = initCell;
-		pos = new Translate();
+		player = p;
+		//pos = new Translate();
 		//this.player = player;
 	
-		e = new Ellipse();
+		currentCell.setColor(colors[player - 1]);
+		/*e = new Ellipse();
 		getChildren().addAll(e);
 		e.getTransforms().add(pos);
 		e.setStroke(Color.LIGHTGRAY);
-		e.setFill(colors[player - 1]);
+		e.setFill(colors[player - 1]);*/
 
-		this.setOnMouseClicked(new EventHandler<MouseEvent>(){
+		/*this.setOnMouseClicked(new EventHandler<MouseEvent>(){
 
 			@Override
 			public void handle(MouseEvent arg0) {
 				currentCell.clicked();
-				/*for(int i = 0; i < 6; i +=1)
-				{
-					if(others[i] != null)
-						others[i].setFill(Color.ALICEBLUE);
-				}*/
 			}
 			
-		});
+		});*/
 	}
 
 	public void changeCell(Cell cell) {
 		this.currentCell = cell;
+		currentCell.setColor(colors[player - 1]);
 	}
 
 	public Cell getCurrentCell() {
 		return this.currentCell;
 	}
 	
-	public void setSelected() {
+	/*public void setSelected() {
 		e.setStroke(Color.DARKGREY);
 		System.out.println("Change stroke of piece");
 	}
-	
+	*/
 	@Override
 	public void resize(double width, double height){
 		super.resize(width,  height);
@@ -66,9 +64,9 @@ class Piece extends Group {
 		e.setCenterX(width / 2); e.setCenterY(height / 2);
 		e.setRadiusX(width / 2); e.setRadiusY(height / 2);*/
 		
-		double val = 0.7;
+		/*double val = 0.7;
 		e.setCenterX(width * val); e.setCenterY(height * val);
-		e.setRadiusX(width * val); e.setRadiusY(height * val);
+		e.setRadiusX(width * val); e.setRadiusY(height * val);*/
 
 	}
 	

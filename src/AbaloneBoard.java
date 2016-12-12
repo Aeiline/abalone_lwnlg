@@ -29,9 +29,10 @@ class AbaloneBoard extends Pane {
 	
 	public AbaloneBoard(){
 		current_player = 1;
-		game = new GameLogic();
+		game = new GameLogic(this);
 		pieces = new Piece[9][9];
 
+		game.setPlayer(current_player);
 		Polygon hexagon = new Polygon();
 		Double a, b, c;
 		a = 100.0;
@@ -126,7 +127,7 @@ class AbaloneBoard extends Pane {
 	private void placeAllPieces(int nbPlayer) {
 		int player = 1;
 
-		Translate pos;
+		//Translate pos;
 		int size_line = 5;
 		int count = 1;
 		
@@ -141,10 +142,10 @@ class AbaloneBoard extends Pane {
 						board[i][j].setPlayer(player);
 						pieces[i][j] = new Piece(player, board[i][j]);
 						//board[i][j].setPiece(pieces[i][j]);
-						pos = board[i][j].getPos();
+						//pos = board[i][j].getPos();
 						//System.out.println("x: " + pos.getX() + "y: " + pos.getY());
-						pieces[i][j].relocate(pos.getX(), pos.getY());
-						pieces[i][j].resize(26, 26);
+						//pieces[i][j].relocate(pos.getX(), pos.getY());
+						//pieces[i][j].resize(26, 26);
 						getChildren().add(pieces[i][j]);
 					}
 				}
@@ -156,10 +157,10 @@ class AbaloneBoard extends Pane {
 						board[i][j].setPlayer(player);
 						pieces[i][j] = new Piece(player, board[i][j]);
 						//board[i][j].setPiece(pieces[i][j]);
-						pos = board[i][j].getPos();
+						//pos = board[i][j].getPos();
 						//System.out.println("x: " + pos.getX() + "y: " + pos.getY());
-						pieces[i][j].relocate(pos.getX(), pos.getY());
-						pieces[i][j].resize(26, 26);
+						//pieces[i][j].relocate(pos.getX(), pos.getY());
+						//pieces[i][j].resize(26, 26);
 						getChildren().add(pieces[i][j]);
 					}
 				}
