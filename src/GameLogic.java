@@ -1,8 +1,8 @@
 class GameLogic {
 	
-	public GameLogic()
+	public GameLogic(AbaloneBoard board)
 	{
-		
+		this.board = board
 	}
 	
 	public void click_occured(Cell clickedcell)
@@ -51,6 +51,12 @@ class GameLogic {
 		
 	}
 	
+	private void setPlayer(int play)
+	{
+		play = player_turn;
+	}
+	
+	private AbaloneBoard board;
 	
 	private int case_number;
 	private int[][] case_to_move;
