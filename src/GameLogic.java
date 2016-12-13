@@ -6,19 +6,20 @@ class GameLogic {
 	{
 		this.board = board;
 		case_number = 0;
+		player_turn = 1;
 	}
 	
 	public void click_control(Cell clickedcell)
 	{
-		System.out.println("control");
+		System.out.println("control" + player_turn);
 		if (clickedcell.getPlayer() == player_turn)
-		{
+		{		System.out.println("right");
 			last_pos = clickedcell.getBoardPos(); 
 			if(case_number == 0 || clickedcell.getHighlighted())
 			{
 				save_case();
 				calc_highlited();
-				clickedcell.setSelected(false);
+				clickedcell.setSelected(true);
 				verify_case();
 			}
 		}
@@ -50,20 +51,20 @@ class GameLogic {
 		{
 			if (board[last_pos[0] - 1][last_pos[1]].getPlayer() == player_turn)
 			{
-				board[last_pos[0] - 1][last_pos[1]].setSelected(true);
+				board[last_pos[0] - 1][last_pos[1]].setHighlight(true);
 			}
 			if (board[last_pos[0] + 1][last_pos[1]].getPlayer() == player_turn)
 			{
-				board[last_pos[0] + 1][last_pos[1]].setSelected(true);
+				board[last_pos[0] + 1][last_pos[1]].setHighlight(true);
 			}
 
 			if (board[last_pos[0]][last_pos[1] - 1].getPlayer() == player_turn)
 			{
-				board[last_pos[0]][last_pos[1] - 1].setSelected(true);
+				board[last_pos[0]][last_pos[1] - 1].setHighlight(true);
 			}
 			if (board[last_pos[0]][last_pos[1] + 1].getPlayer() == player_turn)
 			{
-				board[last_pos[0]][last_pos[1] + 1].setSelected(true);
+				board[last_pos[0]][last_pos[1] + 1].setHighlight(true);
 			}
 		}
 	}
