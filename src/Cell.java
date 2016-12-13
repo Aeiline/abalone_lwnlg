@@ -67,18 +67,20 @@ class Cell extends Ellipse{
 		this.setFill(c);
 	}
 	
-	public void setSelected(boolean highlight) {
-		if (highlight){
-			this.setStroke(Color.GREENYELLOW);
-			highlighted = true;
-		}
-		else
+	public void setSelected(boolean activ) {
+		if (activ)
 			this.setStroke(Color.BLACK);
+		else
+			this.setStroke(Color.DARKRED);
 		System.out.println("Change stroke of cell");
 	}
 	
-	public void setHighlight() {
-		this.setStroke(Color.DARKRED);
+	public void setHighlight(boolean activ) {
+		if (activ)
+			this.setStroke(Color.GREENYELLOW);
+		else
+			this.setStroke(Color.DARKRED);
+		this.highlighted = activ;
 	}
 	
 	public void clicked() {
