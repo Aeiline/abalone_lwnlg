@@ -1,29 +1,69 @@
 class GameLogic {
 	
-	public GameLogic(AbaloneBoard board)
+	//setselected true : highlight,  false, black
+	
+	public GameLogic(Cell[][] board)
 	{
 		this.board = board;
+		case_number = 0;
+	}
+	
+	public void click_control(Cell clickedcell)
+	{
+		if (clickedcell.getPlayer() == player_turn)
+		{
+			last_pos = clickedcell.getBoardPos(); 
+			if(case_number == 0 || clickedcell.highlited)
+			{
+				save_case();
+				calc_highlited();
+				clickedcell.setSelected(false);
+				verify_case();
+			}
+		}
+	}
+	
+	public void verify_case()
+	{
+		for (int i = 0; i <= case_number; i++)
+		{
+			System.out.println(case_to_move[i][0] +";" + case_to_move[i][1]);
+		}
 	}
 	
 	public void click_occured(Cell clickedcell)
 	{
-		case_number = 1;
-		System.out.println("click_occured");
-		last_pos = clickedcell.getBoardPos(); 
-		System.out.println(clickedcell.getBoardPos()[0] + ";" + clickedcell.getBoardPos()[1]);
+		case_number = 0;
+
 		if (clickedcell.getPlayer() == -1)
 		{
+			last_pos = clickedcell.getBoardPos(); 
 			print_case_free();
-			System.out.println("free");
 			//affichage des cases disponibles
 		}
-		else
+	}
+	
+	private void calc_highlited()
+	{
+		if (case_number == 0)
 		{
-			System.out.println(clickedcell.getPlayer());
-			System.out.println("not free");
-//			save_case();
-		clickedcell.setSelected();
-			//tour joue
+			if (board[last_pos[0] - 1][last_pos[1]].getPlayer() == player_turn)
+			{
+				board[last_pos[0] - 1][last_pos[1]].setSelected(true);
+			}
+			if (board[last_pos[0] + 1][last_pos[1]].getPlayer() == player_turn)
+			{
+				board[last_pos[0] + 1][last_pos[1]].setSelected(true);
+			}
+
+			if (board[last_pos[0]][last_pos[1] - 1].getPlayer() == player_turn)
+			{
+				board[last_pos[0]][last_pos[1] - 1].setSelected(true);
+			}
+			if (board[last_pos[0]][last_pos[1] + 1].getPlayer() == player_turn)
+			{
+				board[last_pos[0]][last_pos[1] + 1].setSelected(true);
+			}
 		}
 	}
 	
@@ -41,7 +81,6 @@ class GameLogic {
 				}
 			}
 		}
-		System.out.println("nombre " + case_number);
 		case_to_move[case_number][0] = last_pos[0];
 		case_to_move[case_number][1] = last_pos[1];
 	}
@@ -56,14 +95,12 @@ class GameLogic {
 		play = player_turn;
 	}
 	
-	private AbaloneBoard board;
+	private Cell[][] board;
 	
 	private int case_number;
 	private int[][] case_to_move;
 	private int player_turn;
 	private int[] last_pos;
-
-	
 	
 	
 }
