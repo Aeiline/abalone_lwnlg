@@ -10,10 +10,11 @@ class GameLogic {
 	
 	public void click_control(Cell clickedcell)
 	{
+		System.out.println("control");
 		if (clickedcell.getPlayer() == player_turn)
 		{
 			last_pos = clickedcell.getBoardPos(); 
-			if(case_number == 0 || clickedcell.highlited)
+			if(case_number == 0 || clickedcell.getHighlighted())
 			{
 				save_case();
 				calc_highlited();
@@ -32,7 +33,7 @@ class GameLogic {
 	}
 	
 	public void click_occured(Cell clickedcell)
-	{
+	{		System.out.println("click");
 		case_number = 0;
 
 		if (clickedcell.getPlayer() == -1)

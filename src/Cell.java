@@ -46,7 +46,7 @@ class Cell extends Ellipse{
 			@Override
 			public void handle(MouseEvent arg0) {
 				if (arg0.isControlDown())
-					game.click_occured(that);
+					game.click_control(that);
 				else
 					game.click_occured(that);
 				
