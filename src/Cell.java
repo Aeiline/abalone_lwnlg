@@ -1,6 +1,7 @@
 
 import javafx.event.EventHandler;
 import javafx.scene.control.Control;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -17,6 +18,7 @@ class Cell extends Ellipse{
 	private Cell that;
 	//private Piece piece;
 	
+	private boolean highlighted = false;
 	private int width, height;
 	
 	public Cell(GameLogic gameL, int x, int y) {
@@ -39,13 +41,14 @@ class Cell extends Ellipse{
 		double val = 0.7;
 		this.setCenterX(width * val); this.setCenterY(height * val);
 		this.setRadiusX(width * val); this.setRadiusY(height * val);
-		
-		this.setOnMouseClicked(new EventHandler<MouseEvent>(){
 
+		this.setOnMouseClicked(new EventHandler<MouseEvent>(){
 			@Override
 			public void handle(MouseEvent arg0) {
-				// TODO check if control
-				game.click_occured(that);
+				if (arg0.isControlDown())
+					game.click_occured(that);
+				else
+					game.click_occured(that);
 				
 				// if control game.click_control(that);
 				/*for(int i = 0; i < 6; i +=1)
@@ -64,9 +67,18 @@ class Cell extends Ellipse{
 		this.setFill(c);
 	}
 	
-	public void setSelected() {
-		this.setStroke(Color.BLACK);
+	public void setSelected(boolean highlight) {
+		if (highlight){
+			this.setStroke(Color.GREENYELLOW);
+			highlighted = true;
+		}
+		else
+			this.setStroke(Color.BLACK);
 		System.out.println("Change stroke of cell");
+	}
+	
+	public void setHighlight() {
+		this.setStroke(Color.DARKRED);
 	}
 	
 	public void clicked() {
@@ -105,6 +117,10 @@ class Cell extends Ellipse{
 	
 	public void setPlayer(int p) {
 		player = p;
+	}
+	
+	public boolean getHighlighted() {
+		return this.highlighted;
 	}
 	
 	/*public void setPiece(Piece p) {

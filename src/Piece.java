@@ -10,7 +10,7 @@ class Piece extends Group {
 	private int player;
 	private Translate pos;
 	
-	private Color[] colors = new Color[6];
+	private static Color[] colors = new Color[6];
 	private Cell currentCell;
 	
 	public Piece(int p, Cell initCell){

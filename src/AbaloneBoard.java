@@ -1,3 +1,5 @@
+import javafx.event.EventHandler;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
@@ -29,7 +31,7 @@ class AbaloneBoard extends Pane {
 	
 	public AbaloneBoard(){
 		current_player = 1;
-		game = new GameLogic(this);
+		game = new GameLogic(this.board);
 		pieces = new Piece[9][9];
 
 		//game.setPlayer(current_player);
@@ -70,6 +72,7 @@ class AbaloneBoard extends Pane {
 		this.relocate(0, 0);
 		linkCells(5, 1);
 		placeAllPieces(2);
+		
 	}
 	
 	private void linkCells(int size_line, int count) {
