@@ -21,6 +21,7 @@ class AbaloneBoard extends Pane {
 	private final int EMPTY = 0;
 	private final int XPIECE = 1;
 	private final int OPIECE = 2;*/
+	private Menu menu = new Menu();
 	private Cell[][] board = new Cell[9][9];
 	private int current_player;
 	private double cell_width, cell_height;
@@ -34,6 +35,7 @@ class AbaloneBoard extends Pane {
 		game = new GameLogic(this.board);
 		pieces = new Piece[9][9];
 
+		this.getChildren().add(menu);
 		//game.setPlayer(current_player);
 		Polygon hexagon = new Polygon();
 		Double a, b, c;
