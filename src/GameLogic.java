@@ -13,20 +13,22 @@ class GameLogic {
 	{
 		System.out.println("control" + player_turn);
 		if (clickedcell.getPlayer() == player_turn)
-		{		System.out.println("right");
+		{		System.out.println("case_number" + case_number);
 			last_pos = clickedcell.getBoardPos(); 
-			if(case_number == 0 || clickedcell.getHighlighted())
+			if(case_number < 3 || clickedcell.getHighlighted())
 			{
 				save_case();
-				calc_highlited();
+				calc_highlited(clickedcell);
 				clickedcell.setSelected(true);
 				verify_case();
+				case_number += 1;
 			}
 		}
 	}
 	
 	public void verify_case()
 	{
+		System.out.println("case_number in 2 : " + case_number);
 		for (int i = 0; i <= case_number; i++)
 		{
 			System.out.println(case_to_move[i][0] +";" + case_to_move[i][1]);
@@ -45,33 +47,27 @@ class GameLogic {
 		}
 	}
 	
-	private void calc_highlited()
+	private void calc_highlited(Cell clickedcell)
 	{
-		if (case_number == 0)
+		if (case_number < 3)
 		{
-			if (board[last_pos[0] - 1][last_pos[1]].getPlayer() == player_turn)
+			for (int i = 0; i < 6; i += 1)
 			{
-				board[last_pos[0] - 1][last_pos[1]].setHighlight(true);
-			}
-			if (board[last_pos[0] + 1][last_pos[1]].getPlayer() == player_turn)
-			{
-				board[last_pos[0] + 1][last_pos[1]].setHighlight(true);
-			}
-
-			if (board[last_pos[0]][last_pos[1] - 1].getPlayer() == player_turn)
-			{
-				board[last_pos[0]][last_pos[1] - 1].setHighlight(true);
-			}
-			if (board[last_pos[0]][last_pos[1] + 1].getPlayer() == player_turn)
-			{
-				board[last_pos[0]][last_pos[1] + 1].setHighlight(true);
+				if (clickedcell.others[i] != null)
+				{
+					if (clickedcell.others[i].getPlayer() == player_turn)
+					{
+						if (clickedcell.others[i].getSelected() == false)
+							clickedcell.others[i].setHighlight(true);
+					}
+				}
 			}
 		}
 	}
 	
 	private void save_case()
 	{
-		case_number += 1;
+
 		if (case_to_move == null)
 		{
 			case_to_move = new int[3][2];
@@ -85,6 +81,7 @@ class GameLogic {
 		}
 		case_to_move[case_number][0] = last_pos[0];
 		case_to_move[case_number][1] = last_pos[1];
+
 	}
 	
 	private void print_case_free()

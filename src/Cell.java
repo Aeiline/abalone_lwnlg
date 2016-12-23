@@ -13,12 +13,13 @@ class Cell extends Ellipse{
 	private int player;
 	private GameLogic game;
 	private Translate pos;
-	private Cell[] others = new Cell[6];
+	public Cell[] others = new Cell[6];
 	private int[] boardPos = new int[2];
 	private Cell that;
 	//private Piece piece;
 	
 	private boolean highlighted = false;
+	private boolean selected = false;
 	private int width, height;
 	
 	public Cell(GameLogic gameL, int x, int y) {
@@ -72,6 +73,7 @@ class Cell extends Ellipse{
 			this.setStroke(Color.BLACK);
 		else
 			this.setStroke(Color.DARKRED);
+		this.selected = activ;
 		System.out.println("Change stroke of cell");
 	}
 	
@@ -123,6 +125,10 @@ class Cell extends Ellipse{
 	
 	public boolean getHighlighted() {
 		return this.highlighted;
+	}
+	
+	public boolean getSelected() {
+		return this.selected;
 	}
 	
 	/*public void setPiece(Piece p) {
