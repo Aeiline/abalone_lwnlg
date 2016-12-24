@@ -4,6 +4,7 @@ class GameLogic {
 	
 	public GameLogic(Cell[][] board)
 	{
+		nb_player = 2;
 		this.board = board;
 		case_number = 0;
 		player_turn = 1;
@@ -15,7 +16,7 @@ class GameLogic {
 		if (clickedcell.getPlayer() == player_turn)
 		{			System.out.println("begin");
 			last_pos = clickedcell.getBoardPos(); 
-			if(case_number < 3/* || clickedcell.getHighlighted()*/)
+			if(case_number < 3)
 			{
 				System.out.println("first step");
 				if (verify_direction(clickedcell))
@@ -47,7 +48,6 @@ class GameLogic {
 				}
 			}
 		}
-		System.out.println("last : " + last_direction + "new : " + new_direction);
 		
 		if (new_direction != -20)
 		{
@@ -80,9 +80,15 @@ class GameLogic {
 
 		if (clickedcell.getPlayer() == -1)
 		{
+			
 			last_pos = clickedcell.getBoardPos(); 
 			print_case_free();
 			//affichage des cases disponibles
+			System.out.println("changement de joueur");
+			if (player_turn == nb_player)
+				player_turn = 1;
+			else
+				player_turn += 1;
 		}
 	}
 	
@@ -159,6 +165,6 @@ class GameLogic {
 	private int[][] case_to_move;
 	private int player_turn;
 	private int[] last_pos;
-	
+	private int nb_player;
 	
 }
