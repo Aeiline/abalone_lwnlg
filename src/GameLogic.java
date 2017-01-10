@@ -8,20 +8,21 @@ class GameLogic {
 		this.board = board;
 		case_number = 0;
 		player_turn = 1;
+		highlited = null;
 	}
 	
 	public void click_control(Cell clickedcell)
 	{
-		System.out.println("control" + player_turn);
+
 		if (clickedcell.getPlayer() == player_turn)
-		{			System.out.println("begin");
-			last_pos = clickedcell.getBoardPos(); 
+		{		//	System.out.println("begin");
+			last_pos = clickedcell; 
 			if(case_number < 3)
 			{
-				System.out.println("first step");
+			//	System.out.println("first step");
 				if (verify_direction(clickedcell))
 				{
-					System.out.println("second step");
+				//	System.out.println("second step");
 					save_case();
 					calc_highlited(clickedcell);
 					clickedcell.setSelected(true);
@@ -39,9 +40,9 @@ class GameLogic {
 		{
 			for (int i = 0; i < 6; i += 1)
 			{
-				if (clickedcell.others[i] != null && case_to_move[case_number - 1][0] == clickedcell.others[i].getBoardPos()[0])
+				if (clickedcell.others[i] != null && case_to_move[case_number - 1].getBoardPos()[0] == clickedcell.others[i].getBoardPos()[0])
 				{
-					if (case_to_move[case_number - 1][1] == clickedcell.others[i].getBoardPos()[1])
+					if (case_to_move[case_number - 1].getBoardPos()[1] == clickedcell.others[i].getBoardPos()[1])
 					{
 						new_direction = i;
 					}
@@ -70,26 +71,35 @@ class GameLogic {
 	{
 		for (int i = 0; i <= case_number; i++)
 		{
-			System.out.println(case_to_move[i][0] +";" + case_to_move[i][1]);
+			System.out.println(case_to_move[i].getBoardPos()[0] +";" + case_to_move[i].getBoardPos()[1]);
 		}
+	}
+	
+	public void reset_case()
+	{
+		case_number = 0;
+		case_to_move = null;
 	}
 	
 	public void click_occured(Cell clickedcell)
 	{	
-		case_number = 0;
+
 
 		if (clickedcell.getPlayer() == -1)
 		{
-			
-			last_pos = clickedcell.getBoardPos(); 
+
+			last_pos = clickedcell; 
+			System.out.println("cell : " + last_pos.getBoardPos()[0] + ";" + last_pos.getBoardPos()[1]);
 			print_case_free();
+			move_case();
 			//affichage des cases disponibles
-			System.out.println("changement de joueur");
 			if (player_turn == nb_player)
 				player_turn = 1;
 			else
 				player_turn += 1;
+			reset_case();
 		}
+		case_number = 0;
 	}
 	
 	private void calc_highlited(Cell clickedcell)
@@ -101,9 +111,9 @@ class GameLogic {
 				for (int i = 0; i < 6; i += 1)
 				{
 					
-					if (clickedcell.others[i] != null && case_to_move[case_number - 1][0] == clickedcell.others[i].getBoardPos()[0])
+					if (case_to_move[case_number - 1].others[i] != null && case_to_move[case_number - 1].others[i].getBoardPos()[0] == clickedcell.getBoardPos()[0])
 					{
-						if (case_to_move[case_number - 1][1] == clickedcell.others[i].getBoardPos()[1])
+						if (case_to_move[case_number - 1].others[i].getBoardPos()[1] == clickedcell.getBoardPos()[1])
 						{
 							last_direction = i;
 						}
@@ -126,26 +136,83 @@ class GameLogic {
 		}
 	}
 	
+	private int find_direction()
+	{
+		int inc;
+		System.out.println("entryboucle "+ case_number);
+		for (int i = 0; i < case_number; i+=1)
+		{
+			for (inc = 0; inc < 6; inc += 1)
+			{
+				System.out.print("cellule "+ i + "  :"+ inc + "    y: " + last_pos.getBoardPos()[0] + "=> y:" + case_to_move[i].others[inc].getBoardPos()[0] + "   ");
+				System.out.println("x: " + last_pos.getBoardPos()[1] + "=> y:" + case_to_move[i].others[inc].getBoardPos()[1]);
+
+				if (last_pos.getBoardPos()[0] == case_to_move[i].others[inc].getBoardPos()[0])
+				{
+					if (last_pos.getBoardPos()[1] == case_to_move[i].others[inc].getBoardPos()[1])
+						return inc;
+				}
+			}
+		}
+		return -10;
+/*		if (case_number > 0)
+		{
+			for (int i = 0; i < 6; i += 1)
+			{
+				
+				if (clickedcell.others[i] != null && case_to_move[case_number - 1][0] == clickedcell.others[i].getBoardPos()[0])
+				{
+					if (case_to_move[case_number - 1][1] == clickedcell.others[i].getBoardPos()[1])
+					{
+						last_direction = i;
+					}
+				}
+			}
+		}*/
+	}
+	
 	private void save_case()
 	{
 
 		if (case_to_move == null)
 		{
 			last_direction = -10;
-			case_to_move = new int[3][2];
+			case_to_move = new Cell[3];
 			for (int i = 0; i < 3; i +=1)
 			{
 				for(int j = 0; j < 2; j += 1)
 				{
-					case_to_move[i][j] = -1;
+					case_to_move[i] = null;
 				}
 			}
 		}
-		case_to_move[case_number][0] = last_pos[0];
-		case_to_move[case_number][1] = last_pos[1];
+		case_to_move[case_number] = last_pos;
 
 			
 
+	}
+	
+	private void move_case()
+	{
+		boolean finish = false;
+		int direction = find_direction();
+		System.out.println("new direction " + direction);
+		if ((direction == last_direction) || (direction -3 == last_direction) || (direction + 3 == last_direction))
+		{
+			System.out.println("hello");
+			while (!finish)
+			{
+				for (int i = 0; i < case_number; i += 1)
+				{
+					case_to_move[i].others[direction].setPlayer(player_turn);
+				}
+				if (last_pos.getPlayer() == player_turn )
+				{
+					System.out.println("youpi");
+					finish = true;
+				}
+			}
+		}
 	}
 	
 	private void print_case_free()
@@ -159,12 +226,13 @@ class GameLogic {
 	}
 	
 	private Cell[][] board;
+	private Cell[] highlited;
 	
 	private int last_direction;
 	private int case_number;
-	private int[][] case_to_move;
+	private Cell[] case_to_move;
 	private int player_turn;
-	private int[] last_pos;
+	private Cell last_pos;
 	private int nb_player;
 	
 }
