@@ -26,7 +26,7 @@ class Piece extends Group {
 		//pos = new Translate();
 		//this.player = player;
 	
-		currentCell.setColor(colors[player - 1]);
+		//currentCell.setColor(colors[player - 1]);
 		/*e = new Ellipse();
 		getChildren().addAll(e);
 		e.getTransforms().add(pos);
@@ -43,10 +43,10 @@ class Piece extends Group {
 		});*/
 	}
 
-	public void changeCell(Cell cell) {
+	/*public void changeCell(Cell cell) {
 		this.currentCell = cell;
 		currentCell.setColor(colors[player - 1]);
-	}
+	}*/
 
 	public Cell getCurrentCell() {
 		return this.currentCell;

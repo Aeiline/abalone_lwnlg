@@ -22,7 +22,19 @@ class Cell extends Ellipse{
 	private boolean selected = false;
 	private int width, height;
 	
+	private static Color[] colors = new Color[6];
+	
+	public void initColors() {
+		colors[0] = Color.DIMGREY;
+		colors[1] = Color.LIGHTGOLDENRODYELLOW;
+		colors[2] = Color.INDIANRED;
+		colors[3] = Color.ROYALBLUE;
+		colors[4] = Color.DARKORANGE;
+		colors[5] = Color.DARKSEAGREEN;
+	}
+	
 	public Cell(GameLogic gameL, int x, int y) {
+		initColors();
 		game = gameL;
 		player = -1;
 		boardPos[0] = x;
@@ -121,6 +133,8 @@ class Cell extends Ellipse{
 	
 	public void setPlayer(int p) {
 		player = p;
+		if (player > 0)
+			this.setFill(Cell.colors[this.player - 1]);
 	}
 	
 	public boolean getHighlighted() {

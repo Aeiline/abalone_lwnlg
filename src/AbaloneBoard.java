@@ -9,18 +9,6 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Translate;
 
 class AbaloneBoard extends Pane {
-	/*private int[][] board;
-	private Piece[][] renders;
-	private Rectangle back;
-	private Line h1, h2, v1, v2;
-	private double cell_width, cell_height;
-	
-	private Translate ch_one, ch_two, cw_one, cw_two;
-	private int current_player;
-	
-	private final int EMPTY = 0;
-	private final int XPIECE = 1;
-	private final int OPIECE = 2;*/
 	private Menu menu = new Menu();
 	private Cell[][] board = new Cell[9][9];
 	private int current_player;
@@ -28,7 +16,6 @@ class AbaloneBoard extends Pane {
 	private Polygon board_shape;
 	private GameLogic game;
 	
-	private Piece[][] pieces;
 	
 	// TODO: mettre dans GameLogic
 	public void nextTurn() {
@@ -43,7 +30,6 @@ class AbaloneBoard extends Pane {
 	public AbaloneBoard(){
 		current_player = 1;
 		game = new GameLogic(this.board);
-		pieces = new Piece[9][9];
 
 		this.getChildren().add(menu);
 		//game.setPlayer(current_player);
@@ -155,13 +141,6 @@ class AbaloneBoard extends Pane {
 						board[i][j].setPlayer(-1);
 					else {
 						board[i][j].setPlayer(player);
-						pieces[i][j] = new Piece(player, board[i][j]);
-						//board[i][j].setPiece(pieces[i][j]);
-						//pos = board[i][j].getPos();
-						//System.out.println("x: " + pos.getX() + "y: " + pos.getY());
-						//pieces[i][j].relocate(pos.getX(), pos.getY());
-						//pieces[i][j].resize(26, 26);
-						getChildren().add(pieces[i][j]);
 					}
 				}
 				else if (/*player == 2 &&*/ (i == 0 || i == 1 || i == 2)) {
@@ -170,13 +149,6 @@ class AbaloneBoard extends Pane {
 						board[i][j].setPlayer(-1);
 					else {
 						board[i][j].setPlayer(player);
-						pieces[i][j] = new Piece(player, board[i][j]);
-						//board[i][j].setPiece(pieces[i][j]);
-						//pos = board[i][j].getPos();
-						//System.out.println("x: " + pos.getX() + "y: " + pos.getY());
-						//pieces[i][j].relocate(pos.getX(), pos.getY());
-						//pieces[i][j].resize(26, 26);
-						getChildren().add(pieces[i][j]);
 					}
 				}
 			}
