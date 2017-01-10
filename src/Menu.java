@@ -22,9 +22,10 @@ class Menu extends GridPane {
 		r.setArcHeight(20);
 		
 		this.add(r, 1, 1);
-		this.add( new Text("Playing:\tPlayer" + 1), 1, 2); // TODO replace with current player
+		this.add(new Text("Use CTRL to select"), 1, 2);
+		this.add(new Text("Playing:\tPlayer" + 1), 1, 3); // TODO replace with current player
 		for (int i = 0; i < nbplayer; i++) {
-			this.add(new Text("Player" + (i + 1) + ":\t" + 6 + "/" + 6), 1, i + 3); // TODO replace with nb pieces left
+			this.add(new Text("Player" + (i + 1) + ":\t" + 6 + "/" + 6), 1, i + 4); // TODO replace with nb pieces left
 		}
 	}
 }

@@ -30,6 +30,16 @@ class AbaloneBoard extends Pane {
 	
 	private Piece[][] pieces;
 	
+	// TODO: mettre dans GameLogic
+	public void nextTurn() {
+		for(int i = 0; i < 9; i++) {
+			for(int j = 0; j < 5; j++) {
+				if (this.board[i][j].getHighlighted())
+					this.board[i][j].setHighlight(false);
+			}
+		}
+	}
+	
 	public AbaloneBoard(){
 		current_player = 1;
 		game = new GameLogic(this.board);
