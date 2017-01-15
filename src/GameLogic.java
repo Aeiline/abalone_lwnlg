@@ -139,20 +139,28 @@ class GameLogic {
 	private int find_direction()
 	{
 		int inc;
+		Cell tmp_cell;
 		System.out.println("entryboucle "+ case_number);
 		for (int i = 0; i < case_number; i+=1)
 		{
 			for (inc = 0; inc < 6; inc += 1)
 			{
-				System.out.print("cellule "+ i + "  :"+ inc + "    y: " + last_pos.getBoardPos()[0] + "=> y:" + case_to_move[i].others[inc].getBoardPos()[0] + "   ");
-				System.out.println("x: " + last_pos.getBoardPos()[1] + "=> y:" + case_to_move[i].others[inc].getBoardPos()[1]);
-
-				if (last_pos.getBoardPos()[0] == case_to_move[i].others[inc].getBoardPos()[0])
+				tmp_cell = case_to_move[i];
+				for (int tmp = 0; tmp < case_number; tmp += 1)
 				{
-					if (last_pos.getBoardPos()[1] == case_to_move[i].others[inc].getBoardPos()[1])
+					
+				System.out.print("cellule "+ i + "  :"+ inc + "    y: " + last_pos.getBoardPos()[0] + "=> y:");
+			//	System.out.println("x: " + last_pos.getBoardPos()[1] + "=> y:" + tmp_cell.others[inc].getBoardPos()[1]);
+				System.out.println("+++++++++++++");
+				if (last_pos.getBoardPos()[0] == tmp_cell.others[inc].getBoardPos()[0])
+				{
+					if (last_pos.getBoardPos()[1] == tmp_cell.others[inc].getBoardPos()[1])
 						return inc;
 				}
+				tmp_cell = tmp_cell.others[inc];
+				}
 			}
+			System.out.println("--------------");
 		}
 		return -10;
 /*		if (case_number > 0)
@@ -171,6 +179,18 @@ class GameLogic {
 		}*/
 	}
 	
+
+	public void nextTurn() {
+		for(int i = 0; i < 9; i++) {
+			for(int j = 0; j < 5; j++) {
+				if (this.board[i][j].getHighlighted())
+					this.board[i][j].setHighlight(false);
+				if (this.board[i][j].getSelected())
+					this.board[i][j].setSelected(false);
+			}
+		}
+	}
+		
 	private void save_case()
 	{
 
@@ -194,25 +214,36 @@ class GameLogic {
 	
 	private void move_case()
 	{
+		nextTurn();
+		Cell tmp = null;
 		boolean finish = false;
 		int direction = find_direction();
 		System.out.println("new direction " + direction);
-		if ((direction == last_direction) || (direction -3 == last_direction) || (direction + 3 == last_direction))
-		{
+		/*if ((direction == last_direction) || (direction -3 == last_direction) || (direction + 3 == last_direction))
+		{*/
 			System.out.println("hello");
 			while (!finish)
 			{
 				for (int i = 0; i < case_number; i += 1)
 				{
+					case_to_move[i].setPlayer(-1);
+
 					case_to_move[i].others[direction].setPlayer(player_turn);
+					case_to_move[i] = case_to_move[i].others[direction];
 				}
+
+				/*if (tmp != null && tmp.getPlayer() != -1)
+				{
+					System.out.print("cellule tmp "+ tmp.getBoardPos()[0] + "  :"+ tmp.getBoardPos()[1] + "   ");
+
+				}*/
 				if (last_pos.getPlayer() == player_turn )
 				{
 					System.out.println("youpi");
 					finish = true;
 				}
 			}
-		}
+		//}
 	}
 	
 	private void print_case_free()
