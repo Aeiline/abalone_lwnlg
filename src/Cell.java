@@ -135,6 +135,8 @@ class Cell extends Ellipse{
 		player = p;
 		if (player > 0)
 			this.setFill(Cell.colors[this.player - 1]);
+		else
+			this.setFill(Color.LIGHTGRAY);
 	}
 	
 	public boolean getHighlighted() {
