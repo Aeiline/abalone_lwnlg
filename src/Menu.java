@@ -3,30 +3,41 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 
 class Menu extends GridPane {
-	//private Rectangle r = new Rectangle();
-	
-	public Menu() {
-		int nbplayer = 2; // TODO link to real number
-		/*r.setX(10);
-		r.setY(50);*/
+	private TextFlow txtF = new TextFlow();
+	private Text currentPlayerTxt;
+	private Text[] piecesLeftTxt = new Text[6];
+	private int nbplayer;
 
-	    setPadding(new Insets(5));
-	    setHgap(450);
-	    setVgap(15);
-	    
-		/*r.setWidth(180);
-		r.setHeight(20); // total height = +350
-		r.setArcWidth(20);
-		r.setArcHeight(20);
+	public Menu() {
+		nbplayer = 2; // TODO link to real number (via parameters ?)
 		
-		this.add(r, 1, 1);*/
-	    //this.setStyle("-fx-background-color: #C0C0C0;");
-		this.add(new Text("Use CTRL to select first and\nfollowing pieces. Then, just click to\nmove selected pieces."), 1, 2);
-		this.add(new Text("Playing:\tPlayer" + 1), 1, 3); // TODO replace with current player
+	    setPadding(new Insets(5));
+	    setVgap(5);
+	    this.setStyle("-fx-background-color: #C0C0C0;");
+
+	    Text txt1 = new Text("Playing:");
+	    txt1.setStyle("-fx-font-weight: bold");
+	    currentPlayerTxt = new Text("\tPlayer" + 1 + "\n");
+	    txtF.getChildren().addAll(txt1, currentPlayerTxt);
+	    
+		this.add(new Text("HOW TO PLAY:\nUse CTRL to select first and\nfollowing pieces. Then, just click to\nmove selected pieces.\n"), 1, 1);
+		this.add(txtF, 1, 3);
 		for (int i = 0; i < nbplayer; i++) {
-			this.add(new Text("Player" + (i + 1) + ":\t" + 6 + "/" + 6), 1, i + 4); // TODO replace with nb pieces left
+			piecesLeftTxt[i] = new Text("Player" + (i + 1) + ":\t" + 6 + "/" + 6);
+			this.add(piecesLeftTxt[i], 1, i + 4);
+		}
+		for (int j = 6 - nbplayer; j > 0; j--) {
+			this.add(new Text("\n"), 1, j + 4);
+		}
+	}
+	
+	public void updateMenu(int currentPlayer, int[] piecesLeft){
+		this.currentPlayerTxt.setText("\tPlayer" + currentPlayer);
+		for (int i = 0; i < nbplayer; i++) {
+			piecesLeftTxt[i].setText("Player" + (i + 1) + ":\t" + piecesLeft[i] + "/" + 6);
 		}
 	}
 }
