@@ -12,21 +12,12 @@ class CustomControl extends Control {
 		xoboard = new AbaloneBoard();
 		getChildren().add(xoboard);
 		
-		// add a mouse clicked listener that will try to place a piece
-		setOnMouseClicked(new EventHandler<MouseEvent>() {
-		// overridden handle method
-		@Override
-		public void handle(MouseEvent event) {
-			xoboard.placePiece(event.getX(), event.getY());
-			}
-		});
-		
 		setOnKeyPressed(new EventHandler<KeyEvent>() {
 			// overridden handle method
 			@Override
 			public void handle(KeyEvent event) {
-				if(event.getCode() == KeyCode.SPACE)
-				xoboard.resetGame();
+				//if(event.getCode() == KeyCode.SPACE)
+				//xoboard.resetGame();
 			}
 		});
 	}

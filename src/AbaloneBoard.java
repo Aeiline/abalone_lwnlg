@@ -1,28 +1,98 @@
+
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.input.KeyEvent;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
-import javafx.scene.shape.Polyline;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.transform.Translate;
 
 class AbaloneBoard extends Pane {
-	private Menu menu = new Menu();
+	private Menu menu;
 	private Cell[][] board = new Cell[9][9];
 	private int current_player;
 	private double cell_width, cell_height;
-	private Polygon board_shape;
+	//private Polygon board_shape;
 	private GameLogic game;
+	private int nbPlayers;
 	
+	final ToggleGroup group = new ToggleGroup();
 
 	public AbaloneBoard(){
+		playersSelection();
+	}
+	
+	private void playersSelection() {
+		int setX = 300;
+		int setYInit = 100;
+		int offset = 30;
+		
+		Label q = new Label("How many players ?:");
+		q.setTranslateX(setX - q.getText().length());
+		q.setTranslateY(setYInit - offset);
+		RadioButton rb1 = new RadioButton("2 players");
+		rb1.setToggleGroup(group);
+		rb1.setSelected(true);
+	    rb1.setUserData(2);
+		rb1.setTranslateX(setX);
+		rb1.setTranslateY(setYInit);
+		RadioButton rb2 = new RadioButton("3 players");
+		rb2.setToggleGroup(group);
+	    rb2.setUserData(3);
+		rb2.setTranslateX(setX);
+		rb2.setTranslateY(setYInit + offset);
+		RadioButton rb3 = new RadioButton("4 players");
+		rb3.setToggleGroup(group);
+	    rb3.setUserData(4);
+		rb3.setTranslateX(setX);
+		rb3.setTranslateY(setYInit + 2*offset);
+		RadioButton rb4 = new RadioButton("5 players");
+		rb4.setToggleGroup(group);
+	    rb4.setUserData(5);
+		rb4.setTranslateX(setX);
+		rb4.setTranslateY(setYInit + 3*offset);
+		RadioButton rb5 = new RadioButton("6 players");
+		rb5.setToggleGroup(group);
+	    rb5.setUserData(6);
+		rb5.setTranslateX(setX);
+		rb5.setTranslateY(setYInit + 4*offset);
+		
+		Button btn = new Button("Play!");
+		btn.setTranslateX(setX + offset);
+		btn.setTranslateY(setYInit + 6*offset);	
+		btn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                startGame(Integer.parseInt(group.getSelectedToggle().getUserData().toString()));
+            }
+        });
+		
+		this.getChildren().addAll(q, rb1, rb2, rb3, rb4, rb5, btn);
+	}
+	
+	private void startGame(int nbPlayers) {
+		this.getChildren().clear();
+		this.nbPlayers = nbPlayers;
+		
+		this.menu = new Menu(nbPlayers);
+		menu.setTranslateX(450);
+		this.getChildren().add(menu);
+		
+		Button resetBtn = new Button("Restart");
+		resetBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+            	resetGame();
+            }
+        });
+		resetBtn.setTranslateX(400);
+		this.getChildren().add(resetBtn);
+		
 		current_player = 1;
 		game = new GameLogic(this.board);
 
-		menu.setTranslateX(450);
-		this.getChildren().add(menu);
 		//game.setPlayer(current_player);
 		Polygon hexagon = new Polygon();
 		Double a, b, c;
@@ -60,8 +130,8 @@ class AbaloneBoard extends Pane {
 		this.resize(600, 400);
 		this.relocate(0, 0);
 		linkCells(5, 1);
-		placeAllPieces(2);
-		
+		placeAllPieces();
+		this.setSize();
 	}
 	
 	private void linkCells(int size_line, int count) {
@@ -116,46 +186,41 @@ class AbaloneBoard extends Pane {
 		}
 	}
 	
-	private void placeAllPieces(int nbPlayer) {
-		int player = 1;
-
-		//Translate pos;
-		int size_line = 5;
-		int count = 1;
+	private void placeAllPieces() {
+		int size_line;
+		int count;
 		
-		// while player < nbPlayer
-		for(int i = 0; i < 9; i++) {
-			for(int j = 0; j < size_line; j++) {
-				if (/*player == 1 &&*/ (i == 6 || i == 7 || i == 8)) {
-					player = 1;
-					if (i == 6 && (j == 0 || j == 1 || j == 5 || j == 6))
-						board[i][j].setPlayer(-1);
-					else {
-						board[i][j].setPlayer(player);
+		for (int player = 1; player <= this.nbPlayers; player++) {
+			size_line = 5;
+			count = 1;
+			for(int i = 0; i < 9; i++) {
+				for(int j = 0; j < size_line; j++) {
+					if (player == 1 && (i == 6 || i == 7 || i == 8)) {
+						if (i == 6 && (j == 0 || j == 1 || j == 5 || j == 6))
+							board[i][j].setPlayer(-1);
+						else {
+							board[i][j].setPlayer(player);
+						}
+					}
+					else if (player == 2 && (i == 0 || i == 1 || i == 2)) {
+						if (i == 2 && (j == 0 || j == 1 || j == 5 || j == 6))
+							board[i][j].setPlayer(-1);
+						else {
+							board[i][j].setPlayer(player);
+						}
 					}
 				}
-				else if (/*player == 2 &&*/ (i == 0 || i == 1 || i == 2)) {
-					player = 2;
-					if (i == 2 && (j == 0 || j == 1 || j == 5 || j == 6))
-						board[i][j].setPlayer(-1);
-					else {
-						board[i][j].setPlayer(player);
-					}
-				}
+				if (size_line == 9)
+					count *= -1;
+				size_line += count;
 			}
-			if (size_line == 9)
-				count *= -1;
-			size_line += count;
 		}
 	}
 	
-	@Override
-	public void resize(double width, double height) {
-		super.resize(width,  height);
-		
+	private void setSize() {	
 
-		cell_width = width / 15.0;
-		cell_height = height / 15.0;
+		cell_width = 650 / 15.0;
+		cell_height = 400 / 15.0;
 
 		int size_line = 5;
 		int count = 1;
@@ -178,39 +243,8 @@ class AbaloneBoard extends Pane {
 		}
 	}
 	
-	public void resetGame() {
-		/*for (int i = 0; i < 3; i++) {
-			for (int j = 0; j < 3; j++) {
-				board[i][j] = 0;
-				getChildren().remove(renders[i][j]);
-				renders[i][j] = null;
-			}
-		}*/
-	}
-	
-	public void placePiece(final double x, final double y) {
-		/*// translate the x, y coordinates into cell indexes
-		int indexx = (int) (x / cell_width);
-		int indexy = (int) (y / cell_height);
-		
-		// if the position is empty then place a piece and swap the players
-		if (board[indexx][indexy] == EMPTY && current_player == XPIECE) {
-			board[indexx][indexy] = XPIECE;
-			renders[indexx][indexy] = new Piece(XPIECE);
-			renders[indexx][indexy].resize(cell_width, cell_height);
-			renders[indexx][indexy].relocate(indexx * cell_width, indexy *
-			cell_height);
-			getChildren().add(renders[indexx][indexy]);
-			current_player = OPIECE;
-		}
-		else if (board[indexx][indexy] == EMPTY && current_player == OPIECE) {
-			board[indexx][indexy] = OPIECE;
-			renders[indexx][indexy] = new Piece(OPIECE);
-			renders[indexx][indexy].resize(cell_width, cell_height);
-			renders[indexx][indexy].relocate(indexx * cell_width, indexy *
-			cell_height);
-			getChildren().add(renders[indexx][indexy]);
-			current_player = XPIECE;
-		}*/
+	private void resetGame() {
+		this.getChildren().clear();
+		this.playersSelection();
 	}
 }
