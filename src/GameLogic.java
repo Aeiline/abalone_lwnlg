@@ -114,6 +114,7 @@ class GameLogic {
 			else
 				player_turn += 1;
 			reset_case();
+			
 		}
 		//verify_victory();
 		case_number = 0;
@@ -188,6 +189,7 @@ class GameLogic {
 	
 
 	public void nextTurn() {
+		System.out.println("-------------------");
 		for(int i = 0; i < 9; i++) {
 			for(int j = 0; j < 5; j++) {
 				if (this.board[i][j].getHighlighted())
@@ -237,14 +239,16 @@ class GameLogic {
 		int coordy;
 		System.out.println("new direction " + direction);
 		System.out.println("last direction " + last_direction);
-			if (direction == last_direction || (last_direction == direction - 3) || (last_direction == direction + 3) 
-					|| last_direction == 4 || last_direction == 1)
+//		direction == last_direction || (last_direction == direction - 3) || (last_direction == direction + 3) 
+	//			|| last_direction == 4 || last_direction == 1
+			if (last_pos.getHighlighted())
 				{
 				System.out.println("good direction");
 				coordx = case_to_move[0].getBoardPos()[0];
 				coordy = case_to_move[0].getBoardPos()[1];
 			while (!finish)
 			{
+				System.out.println("///////////////////////////////");
 				for (int i = 0; i < case_number; i += 1)
 				{
 
@@ -261,10 +265,12 @@ class GameLogic {
 
 				if (coordx == last_pos.getBoardPos()[0] && coordy == last_pos.getBoardPos()[1])
 				{
+					System.out.println("-----------------hello");
 					last_pos.setPlayer(player_turn);
 					System.out.println("youpi");
 					finish = true;
 				}
+				System.out.println("--------------------------");
 			}
 				}
 	}
@@ -279,13 +285,13 @@ class GameLogic {
 			tmp = case_to_move[0].others[i];
 			for (int inc = 0; inc < case_number; inc += 1)
 			{
-			if (tmp != null)
+			if (tmp != null && !tmp.getSelected())
 				tmp.setHighlight(true);
 			if (tmp != null && tmp.others[i] != null)
 				tmp = tmp.others[i];
 			}
 		}
-		
+		System.out.println("length case "+ case_number);
 	}
 	
 	/*private void verify_victory()
