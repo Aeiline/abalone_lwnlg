@@ -9,6 +9,19 @@ class GameLogic {
 		case_number = 0;
 		player_turn = 1;
 		highlited = null;
+		
+	}
+	
+	public void setNbPlayer(int play)
+	{
+		nb_player = play;
+		player_push = null;
+		player_push = new int[nb_player][2];
+		for (int i = 0; i < nb_player ; i += 1)
+		{
+			player_push[i][0] = 0;
+			player_push[i][1] = 16;
+		}
 	}
 	
 	public void click_control(Cell clickedcell)
@@ -28,6 +41,7 @@ class GameLogic {
 					clickedcell.setSelected(true);
 					verify_case();
 					case_number += 1;
+					print_case_free();
 				}
 			}
 		}
@@ -37,7 +51,7 @@ class GameLogic {
 	{
 		int new_direction = -20;
 		if (case_number > 0)
-		{
+		{                        
 			for (int inc = 0; inc < case_number; inc += 1 )
 			{
 			for (int i = 0; i < 6; i += 1)
@@ -52,7 +66,6 @@ class GameLogic {
 			}
 			}
 		}
-		System.out.println("new direction " + new_direction + " ; last " + last_direction );
 		if (new_direction != -20)
 		{
 			if (new_direction == last_direction)
@@ -93,7 +106,7 @@ class GameLogic {
 
 			last_pos = clickedcell; 
 			System.out.println("cell : " + last_pos.getBoardPos()[0] + ";" + last_pos.getBoardPos()[1]);
-			print_case_free();
+
 			move_case();
 			//affichage des cases disponibles
 			if (player_turn == nb_player)
@@ -102,6 +115,7 @@ class GameLogic {
 				player_turn += 1;
 			reset_case();
 		}
+		//verify_victory();
 		case_number = 0;
 	}
 	
@@ -205,6 +219,14 @@ class GameLogic {
 
 	}
 	
+	/*private boolean check_if_good()
+	{
+	/*	for (int i = 0; i < 6; i += 1)
+		{
+			if (case_to_move[0].others[i].getBoardPos()[0] == )
+		}
+	}*/
+	
 	private void move_case()
 	{
 		nextTurn();
@@ -249,14 +271,39 @@ class GameLogic {
 	
 	private void print_case_free()
 	{
+		Cell tmp;
+		System.out.println("length case"+ case_number);
+		//case vide
+		for (int i = 0; i < 6; i += 1)
+		{
+			tmp = case_to_move[0].others[i];
+			for (int inc = 0; inc < case_number; inc += 1)
+			{
+			if (tmp.getPlayer() == -1 )
+				tmp.setHighlight(true);
+			tmp = tmp.others[i];
+			}
+		}
 		
 	}
+	
+	/*private void verify_victory()
+	{
+		for (int i = 0; i < nb_player; i += 1)
+		{
+			if (player_push[i][0] >= 6)
+				end_of_the_game();
+			
+		}
+	}*/
 	
 	private void setPlayer(int play)
 	{
 		play = player_turn;
 	}
 	
+	
+	private int[][] player_push;
 	private Cell[][] board;
 	private Cell[] highlited;
 	
