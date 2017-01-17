@@ -279,9 +279,10 @@ class GameLogic {
 			tmp = case_to_move[0].others[i];
 			for (int inc = 0; inc < case_number; inc += 1)
 			{
-			if (tmp.getPlayer() == -1 )
+			if (tmp != null)
 				tmp.setHighlight(true);
-			tmp = tmp.others[i];
+			if (tmp != null && tmp.others[i] != null)
+				tmp = tmp.others[i];
 			}
 		}
 		
