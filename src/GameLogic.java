@@ -19,10 +19,10 @@ class GameLogic {
 			last_pos = clickedcell; 
 			if(case_number < 3)
 			{
-			//	System.out.println("first step");
+				//System.out.println("first step");
 				if (verify_direction(clickedcell))
 				{
-				//	System.out.println("second step");
+					//System.out.println("second step");
 					save_case();
 					calc_highlited(clickedcell);
 					clickedcell.setSelected(true);
@@ -38,18 +38,21 @@ class GameLogic {
 		int new_direction = -20;
 		if (case_number > 0)
 		{
+			for (int inc = 0; inc < case_number; inc += 1 )
+			{
 			for (int i = 0; i < 6; i += 1)
 			{
-				if (clickedcell.others[i] != null && case_to_move[case_number - 1].getBoardPos()[0] == clickedcell.others[i].getBoardPos()[0])
+				if (clickedcell.others[i] != null && case_to_move[inc].getBoardPos()[0] == clickedcell.others[i].getBoardPos()[0])
 				{
-					if (case_to_move[case_number - 1].getBoardPos()[1] == clickedcell.others[i].getBoardPos()[1])
+					if (case_to_move[inc].getBoardPos()[1] == clickedcell.others[i].getBoardPos()[1])
 					{
 						new_direction = i;
 					}
 				}
 			}
+			}
 		}
-		
+		System.out.println("new direction " + new_direction + " ; last " + last_direction );
 		if (new_direction != -20)
 		{
 			if (new_direction == last_direction)
