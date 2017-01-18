@@ -361,7 +361,7 @@ class GameLogic {
 		for (int i = 0; i < nb_player; i += 1)
 		{
 			if (player_push[i] >= 6)
-				endGame(i + 1);
+				menu.showMsgEnd(i + 1);
 			
 		}
 	}
