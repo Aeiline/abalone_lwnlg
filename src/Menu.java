@@ -24,7 +24,9 @@ class Menu extends GridPane {
 		colors[5] = Color.DARKSEAGREEN;
 		
 		this.nbplayer = nbPlayers;
-		this.totalpieces = 14 - (3 * (this.nbplayer - 2));
+		// 2 => 14; 3 => 11; 4 => 8; 5 => 8; 6 => 6
+		this.totalpieces = this.nbplayer <= 4 ? 14 - (3 * (this.nbplayer - 2)) :
+													(this.nbplayer == 5 ? 8 : 6);
 		
 		String towin = "TO WIN:\n\t" +
 		(this.nbplayer > 2 ? "Push 6 of your adverses' marbles" : "Push 6 of your adverse's marbles");
@@ -70,6 +72,7 @@ class Menu extends GridPane {
 		this.getChildren().clear();
 		Text endMsg = new Text("Winner is Player " + winner + "\t");
 	    endMsg.setStyle("-fx-font: 24 arial;");
+	    endMsg.setFill(colors[winner - 1]);
 		for (int i = 0; i < 12; i++) {
 			if (i == 5)
 			    this.add(endMsg, 1, i);

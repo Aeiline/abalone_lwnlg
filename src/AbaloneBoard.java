@@ -245,53 +245,63 @@ class AbaloneBoard extends Pane {
 	
 	private void case5Players(int player, int i, int j) {
 		if (player == 1 && (i == 0 || i == 1)) {
-			if (i == 0 && j > 0 && j < getLineLength(board[i])
-				|| i == 1 && j > 1 && j < getLineLength(board[i]) - 1)
+			if (j < 4)
 				board[i][j].setPlayer(player);
 		}
-		else if (player == 2 && i >= 1 && i <= 3) {
-			if (i == 1 && j == getLineLength(board[i])
-				|| i != 1 && (j == getLineLength(board[i]) || j == getLineLength(board[i]) - 1))
+		else if (player == 2 && i >= 1 && i <= 5) {
+			if ((i == 1 || i == 5) && j == getLineLength(board[i]) ||
+				i != 1 && i != 5 && (j == getLineLength(board[i]) || j == getLineLength(board[i]) - 1))
 				board[i][j].setPlayer(player);
 		}
-		else if (player == 3 && i >= 6 && i <= 8) {
-			if (i == 8 && j == getLineLength(board[i])
-				|| i != 8 && (j == getLineLength(board[i]) || j == getLineLength(board[i]) - 1))
+		else if (player == 3 && (i == 7 || i == 8)) {
+			if (i == 7 && j > 1 || i == 8 && j > 0)
 				board[i][j].setPlayer(player);
 		}
-		else if (player == 4 && i >= 6 && i <= 8) {
-			if (i == 8 && j == 0 || i != 8 && (j == 0 || j == 1))
+		else if (player == 4 && i >= 3 && i <= 7) {
+			if ((i == 3 || i == 7) && j == 0 ||
+				i != 3 && i != 7 && (j == 0 || j == 1))
 				board[i][j].setPlayer(player);
 		}
-		else if (player == 5 && i >= 2 && i <= 4) {
-			if (i == 2 && j == 0 || i != 2 && (j == 0 || j == 1))
+		else if (player == 5 && i >= 3 && i <= 5) {
+			if ((i == 3 || i == 5) && j > 2 && j < 5 ||
+				i != 3 && i != 5 && j > 2 && j < 6)
 				board[i][j].setPlayer(player);
 		}
 	}
 	
 	private void case6Players(int player, int i, int j) {
-		if (player == 1 && (i == 0 || i == 1)) {
-			if (i == 0 && j == 0 || i == 1 && j == 1)
+		if (player == 1 && i >= 0 && i <= 2) {
+			if (i == 0 && j > 0 && j < getLineLength(board[i]) ||
+				i == 1 && j > 1 && j < getLineLength(board[i]) - 1 ||
+				i == 2 && j == 3)
 				board[i][j].setPlayer(player);
 		}
-		else if (player == 2 && (i == 0 || i == 1)) {
-			if (i == 0 && j == getLineLength(board[i]) || i == 1 && j == getLineLength(board[i]) - 1)
+		else if (player == 2 && i >= 1 && i <= 3) {
+			if (j == getLineLength(board[i]) ||
+				i != 1 && j == getLineLength(board[i]) - 1 ||
+				i == 3 && j == getLineLength(board[i]) - 2)
 				board[i][j].setPlayer(player);
 		}
-		else if (player == 3 && i == 4 &&
-				(j == getLineLength(board[i]) || j == getLineLength(board[i]) - 1))
-				board[i][j].setPlayer(player);
-		else if (player == 4 && (i == 7 || i == 8)) {
-			if (i == 7 && j == getLineLength(board[i]) - 1 || i == 8 && j == getLineLength(board[i]))
+		else if (player == 3 && i >= 5 && i <= 7) {
+			if (j == getLineLength(board[i]) ||
+					i != 7 && j == getLineLength(board[i]) - 1 ||
+					i == 5 && j == getLineLength(board[i]) - 2)
+					board[i][j].setPlayer(player);
+		}
+		else if (player == 4 && i >= 6 && i <= 8) {
+			if (i == 8 && j > 0 && j < getLineLength(board[i]) ||
+				i == 7 && j > 1 && j < getLineLength(board[i]) - 1 ||
+				i == 6 && j == 3)
 				board[i][j].setPlayer(player);
 		}
-		else if (player == 5 && (i == 7 || i == 8)) {
-			if (i == 7 && j == 1 || i == 8 && j == 0)
+		else if (player == 5 && i >= 5 && i <= 7) {
+			if (j == 0 || i != 7 && j == 1 || i == 5 && j == 2)
 				board[i][j].setPlayer(player);
 		}
-		else if (player == 6 && i == 4 &&
-				(j == 0 || j == 1))
+		else if (player == 6 && i >= 1 && i <= 3) {
+			if (j == 0 || i != 1 && j == 1 || i == 3 && j == 2)
 				board[i][j].setPlayer(player);
+		}
 	}
 	
 	private void placeAllPieces() {
