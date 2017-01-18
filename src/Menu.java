@@ -1,7 +1,6 @@
 import javafx.geometry.Insets;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.shape.Rectangle;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
@@ -54,4 +53,19 @@ class Menu extends GridPane {
 			piPushedTxt[i].setText("\tPushed:\t" + piecesPushed[i] + "/" + "6");
 		}
 	}
+
+	public void showMsgEnd(int winner) {
+		this.getChildren().clear();
+		Text endMsg = new Text("Winner is Player " + winner + "\t");
+	    endMsg.setFill(Color.BLACK);
+	    endMsg.setStyle("-fx-font: 24 arial;");
+		for (int i = 0; i < 12; i++) {
+			if (i == 5)
+			    this.add(endMsg, 1, i);
+			else
+				this.add(new Text("\n"), 1, i);
+		}
+	}
+	
+	
 }

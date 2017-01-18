@@ -12,7 +12,7 @@ import javafx.scene.shape.Polygon;
 class AbaloneBoard extends Pane {
 	private Menu menu;
 	private Cell[][] board = new Cell[9][9];
-	private int current_player;
+	//private int current_player;
 	private double cell_width, cell_height;
 	//private Polygon board_shape;
 	private GameLogic game;
@@ -90,7 +90,7 @@ class AbaloneBoard extends Pane {
 		resetBtn.setTranslateX(400);
 		this.getChildren().add(resetBtn);
 		
-		current_player = 1;
+		//current_player = 1;
 		game = new GameLogic(this.board);
 
 		//game.setPlayer(current_player);
@@ -137,7 +137,6 @@ class AbaloneBoard extends Pane {
 	private void linkCells(int size_line, int count) {
 		for(int i = 0; i < 9; i++) {
 			for(int j = 0; j < size_line; j++) {
-				//System.out.println("i;j=" + i + ";" + j);
 				 // cells around clockwise
 				if (i == 0) { // first line
 					if (j == 0)
@@ -217,15 +216,14 @@ class AbaloneBoard extends Pane {
 		}
 	}
 	
-	private void setSize() {	
-
-		cell_width = 650 / 15.0;
-		cell_height = 400 / 15.0;
-
+	private void setSize() {
 		int size_line = 5;
 		int count = 1;
 		int save;
 		int x, y;
+		
+		cell_width = 650 / 15.0;
+		cell_height = 400 / 15.0;
 		
 		x = 51; y = 7;
 		for(int i = 0; i < 9; i++) {
@@ -247,4 +245,9 @@ class AbaloneBoard extends Pane {
 		this.getChildren().clear();
 		this.playersSelection();
 	}
+	
+	/*public void endGame(int winner) {
+		menu.showMsgEnd(winner);
+	}*/
+	
 }
