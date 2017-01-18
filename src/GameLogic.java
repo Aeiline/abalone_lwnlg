@@ -125,11 +125,12 @@ class GameLogic {
 				player_turn += 1;
 			reset_case();
 			case_number = 0;
+			verify_victory();
 			}
 		
 			
 		}
-		//verify_victory();
+
 
 	}
 	
@@ -355,15 +356,15 @@ class GameLogic {
 		}
 	}
 	
-	/*private void verify_victory()
+	private void verify_victory()
 	{
 		for (int i = 0; i < nb_player; i += 1)
 		{
-			if (player_push[i][0] >= 6)
-				end_of_the_game();
+			if (player_push[i] >= 6)
+				endGame(i + 1);
 			
 		}
-	}*/
+	}
 	
 	private void setPlayer(int play)
 	{
