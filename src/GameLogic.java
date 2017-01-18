@@ -28,14 +28,12 @@ class GameLogic {
 	{
 
 		if (clickedcell.getPlayer() == player_turn)
-		{		//	System.out.println("begin");
+		{	
 			last_pos = clickedcell; 
 			if(case_number < 3)
 			{
-				//System.out.println("first step");
 				if (verify_direction(clickedcell))
 				{
-					//System.out.println("second step");
 					save_case();
 					calc_highlited(clickedcell);
 					clickedcell.setSelected(true);
@@ -84,11 +82,17 @@ class GameLogic {
 }
 	
 	public void verify_case()
-	{
-		for (int i = 0; i <= case_number; i++)
-		{
-			System.out.println(case_to_move[i].getBoardPos()[0] +";" + case_to_move[i].getBoardPos()[1]);
+	{	int size_line = 5;
+	int count = 1;
+	for(int i = 0; i < 9; i++) {
+		for(int j = 0; j < size_line; j++) {
+			if (this.board[i][j].getSelected())
+				System.out.println("case selected : " + this.board[i][j].getBoardPos()[0] + " ; " + this.board[i][j].getBoardPos()[1] );
 		}
+		if (size_line == 9)
+			count *= -1;
+		size_line += count;
+	}
 	}
 	
 	public void reset_case()
@@ -105,8 +109,7 @@ class GameLogic {
 		{
 
 			last_pos = clickedcell; 
-			System.out.println("cell : " + last_pos.getBoardPos()[0] + ";" + last_pos.getBoardPos()[1]);
-
+		
 			move_case();
 			//affichage des cases disponibles
 			if (player_turn == nb_player)
@@ -138,7 +141,6 @@ class GameLogic {
 					}
 				}
 			}
-			System.out.println("last_direction :" + last_direction);
 			
 			for (int i = 0; i < 6; i += 1)
 			{
@@ -159,10 +161,7 @@ class GameLogic {
 		int inc;
 		Cell tmp_cell;
 		int hist;
-		System.out.println("entryboucle "+ case_number);
 		int i = 0;
-	/*	for (int i = 0; i < case_number; i+=1)
-		{*/
 			for (inc = 0; inc < 6; inc += 1)
 			{
 				hist = inc;
@@ -173,30 +172,29 @@ class GameLogic {
 			
 				if (tmp_cell != null && tmp_cell.others[inc] != null && last_pos.getBoardPos()[0] == tmp_cell.others[inc].getBoardPos()[0])
 				{
-					if (hist == inc)
-						System.out.println("good "+ hist);
-					else
-						System.out.println(" not good");
 					if (last_pos.getBoardPos()[1] == tmp_cell.others[inc].getBoardPos()[1])
 						return inc;
 				}
 				tmp_cell = tmp_cell.others[inc];
 				}
 			}
-		//}
 		return -10;
 	}
 	
 
 	public void nextTurn() {
-		System.out.println("-------------------");
+		int size_line = 5;
+		int count = 1;
 		for(int i = 0; i < 9; i++) {
-			for(int j = 0; j < 5; j++) {
+			for(int j = 0; j < size_line; j++) {
 				if (this.board[i][j].getHighlighted())
 					this.board[i][j].setHighlight(false);
 				if (this.board[i][j].getSelected())
 					this.board[i][j].setSelected(false);
 			}
+			if (size_line == 9)
+				count *= -1;
+			size_line += count;
 		}
 	}
 		
@@ -235,27 +233,64 @@ class GameLogic {
 		Cell tmp = null;
 		boolean finish = false;
 		int direction = find_direction();
+		player_save = null;
+		player_save = new int[3][3];
+		int inc;
+		int tmp_int;
 		int coordx;
 		int coordy;
-		System.out.println("new direction " + direction);
-		System.out.println("last direction " + last_direction);
-		System.out.println("highl" + last_pos.getHighlighted());
-		System.out.println("coord : " + last_pos.getBoardPos()[0] + " "  + last_pos.getBoardPos()[1]);
-//		direction == last_direction || (last_direction == direction - 3) || (last_direction == direction + 3) 
-	//			|| last_direction == 4 || last_direction == 1
+		int old = -1;
+
+		for (inc = 0; inc < 3; inc += 1)
+		{
+			player_save[inc][0] = -2;
+			player_save[inc][1] = -1;
+			player_save[inc][2] = -1;
+		}
+		System.out.println("----------");
+		verify_case();
+		System.out.println("----------");
 			if (last_pos.getHighlighted())
 				{
-				System.out.println("good direction");
 				coordx = case_to_move[0].getBoardPos()[0];
 				coordy = case_to_move[0].getBoardPos()[1];
 			while (!finish)
 			{
-				System.out.println("///////////////////////////////");
+				
 				for (int i = 0; i < case_number; i += 1)
 				{
+					boolean check = false;
+					if (case_to_move[i].getPlayer() != -1 && !case_to_move[i].getSelected())
+					{
+						System.out.println(" entry " + case_to_move[i].getBoardPos()[0] + " ; " + case_to_move[i].getBoardPos()[1]);
+						for (inc = 0; inc < 3 && !check; inc += 1)
+						{
+							if (player_save[inc][0] == -2)
+							{
+								player_save[inc][0] = case_to_move[i].getPlayer();
+								player_save[inc][1] = case_to_move[i].others[direction].getBoardPos()[0];
+								player_save[inc][2] = case_to_move[i].others[direction].getBoardPos()[1];
+								check = true;
+							}
+						}
+					
+					}
+					check = false;
+					for(inc = 0; inc < 3 && !check; inc += 1)
+					{
+						if (player_save[inc][1] == case_to_move[i].getBoardPos()[0] && player_save[inc][2] == case_to_move[i].getBoardPos()[1])
+						{
+							check = true;
+							case_to_move[i].setPlayer(player_save[inc][0]);
+							player_save[inc][0] = -2;
+							player_save[inc][1] =-1;
+							player_save[inc][2] = -1;
 
-					case_to_move[i].setPlayer(-1);
-
+						}
+					}
+					if (check == false)
+						case_to_move[i].setPlayer(-1);
+					
 					case_to_move[i].others[direction].setPlayer(player_turn);
 					case_to_move[i] = case_to_move[i].others[direction];
 					if (i == 0)
@@ -267,12 +302,9 @@ class GameLogic {
 
 				if (coordx == last_pos.getBoardPos()[0] && coordy == last_pos.getBoardPos()[1])
 				{
-					System.out.println("-----------------hello");
 					last_pos.setPlayer(player_turn);
-					System.out.println("youpi");
 					finish = true;
 				}
-				System.out.println("--------------------------");
 			}
 				}
 			nextTurn();
@@ -281,7 +313,6 @@ class GameLogic {
 	private void print_case_free()
 	{
 		Cell tmp;
-		System.out.println("length case"+ case_number);
 		//case vide
 		for (int i = 0; i < 6; i += 1)
 		{
@@ -294,7 +325,6 @@ class GameLogic {
 				tmp = tmp.others[i];
 			}
 		}
-		System.out.println("length case "+ case_number);
 	}
 	
 	/*private void verify_victory()
@@ -312,7 +342,7 @@ class GameLogic {
 		play = player_turn;
 	}
 	
-	
+	private int[][] player_save;
 	private int[][] player_push;
 	private Cell[][] board;
 	private Cell[] highlited;
