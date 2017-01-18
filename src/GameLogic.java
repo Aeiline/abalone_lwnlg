@@ -111,23 +111,26 @@ class GameLogic {
 	public void click_occured(Cell clickedcell)
 	{	
 
-
 		if (clickedcell.getPlayer() == -1)
 		{
 
 			last_pos = clickedcell; 
 		
-			move_case();
+			if (move_case())
+			{
 			//affichage des cases disponibles
 			if (player_turn == nb_player)
 				player_turn = 1;
 			else
 				player_turn += 1;
 			reset_case();
+			case_number = 0;
+			}
+		
 			
 		}
 		//verify_victory();
-		case_number = 0;
+
 	}
 	
 	private void calc_highlited(Cell clickedcell)
@@ -234,7 +237,7 @@ class GameLogic {
 		}
 	}*/
 	
-	private void move_case()
+	private boolean move_case()
 	{
 	
 		Cell tmp = null;
@@ -254,9 +257,6 @@ class GameLogic {
 			player_save[inc][1] = -1;
 			player_save[inc][2] = -1;
 		}
-		System.out.println("----------");
-		verify_case();
-		System.out.println("----------");
 			if (last_pos.getHighlighted())
 				{
 				coordx = case_to_move[0].getBoardPos()[0];
@@ -331,8 +331,11 @@ class GameLogic {
 
 
 			}
-				}
 			nextTurn();
+			return true;
+			}
+			return false;
+
 	}
 	
 	private void print_case_free()
