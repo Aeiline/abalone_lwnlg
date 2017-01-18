@@ -127,6 +127,7 @@ class GameLogic {
 			reset_case();
 			case_number = 0;
 			verify_victory();
+			menu.updateMenu(player_turn, player_left, player_push);
 			}
 		
 			
