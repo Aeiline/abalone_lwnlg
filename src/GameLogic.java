@@ -283,9 +283,14 @@ class GameLogic {
 									tmp_int = direction - 3;
 								else if (direction < 3)
 									tmp_int = direction + 3;
-								System.out.print("/" +case_to_move[i].others[direction].others[direction].getBoardPos()[0] + "/" + case_to_move[i].others[direction].getBoardPos()[1] );
-								player_save[inc][1] = case_to_move[i].others[direction].others[direction].getBoardPos()[0];
-								player_save[inc][2] = case_to_move[i].others[direction].others[direction].getBoardPos()[1];
+								if ( case_to_move[i].others[direction].others[direction] == null)
+									player_save[inc][1] = -1;
+								else
+									player_save[inc][1] = case_to_move[i].others[direction].others[direction].getBoardPos()[0];
+								if(case_to_move[i].others[direction].others[direction] == null)
+									player_save[inc][2] = -1;
+								else
+									player_save[inc][2] = case_to_move[i].others[direction].others[direction].getBoardPos()[1];
 								check = true;
 							}
 						}
@@ -324,16 +329,16 @@ class GameLogic {
 			}System.out.println("finish");
 			for (inc = 0; inc < 3 ; inc += 1)
 			{
-				System.out.println("check");
+				System.out.println("check00000000");
 				if (player_save[inc][0] != -2)
 				{
 					System.out.println("check1");
-					if (this.board[player_save[inc][1]][player_save[inc][2]] != null)
+					if (player_save[inc][1] >= 0 && player_save[inc][2] >= 0)
 						this.board[player_save[inc][1]][player_save[inc][2]].setPlayer(player_save[inc][0]);
 					else
 					{
 						player_push[player_turn-1] += 1;
-						player_push[player_save[inc][0] - 1] -= 1;
+						player_left[player_save[inc][0] - 1] -= 1;
 						menu.updateMenu(player_turn, player_left, player_push);
 						
 						
