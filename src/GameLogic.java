@@ -231,7 +231,7 @@ class GameLogic {
 	
 	private void move_case()
 	{
-		nextTurn();
+	
 		Cell tmp = null;
 		boolean finish = false;
 		int direction = find_direction();
@@ -239,6 +239,8 @@ class GameLogic {
 		int coordy;
 		System.out.println("new direction " + direction);
 		System.out.println("last direction " + last_direction);
+		System.out.println("highl" + last_pos.getHighlighted());
+		System.out.println("coord : " + last_pos.getBoardPos()[0] + " "  + last_pos.getBoardPos()[1]);
 //		direction == last_direction || (last_direction == direction - 3) || (last_direction == direction + 3) 
 	//			|| last_direction == 4 || last_direction == 1
 			if (last_pos.getHighlighted())
@@ -273,6 +275,7 @@ class GameLogic {
 				System.out.println("--------------------------");
 			}
 				}
+			nextTurn();
 	}
 	
 	private void print_case_free()
