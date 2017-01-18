@@ -40,7 +40,6 @@ class Cell extends Ellipse{
 		boardPos[0] = x;
 		boardPos[1] = y;
 		pos = new Translate(x + 10, y + 15);
-		//piece = null;
 		
 		that = this;
 
@@ -62,13 +61,6 @@ class Cell extends Ellipse{
 					game.click_control(that);
 				else
 					game.click_occured(that);
-				
-				// if control game.click_control(that);
-				/*for(int i = 0; i < 6; i +=1)
-				{
-					if(others[i] != null)
-						others[i].setFill(Color.ALICEBLUE);
-				}*/
 			}
 			
 		});
@@ -146,16 +138,7 @@ class Cell extends Ellipse{
 	public boolean getSelected() {
 		return this.selected;
 	}
-	
-	/*public void setPiece(Piece p) {
-		piece = p;
-		//System.out.println("x,y: " + pos.getX() +"," + pos.getY());
-	}*/
-	
-	/*public Translate getPos() {
-		return pos;
-	}*/
-	
+
 	public int[] getBoardPos(){
 		return boardPos;
 	}
@@ -164,4 +147,5 @@ class Cell extends Ellipse{
 		boardPos[0] = x;
 		boardPos[1] = y;
 	}
+
 }
