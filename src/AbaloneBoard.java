@@ -90,8 +90,14 @@ class AbaloneBoard extends Pane {
 		resetBtn.setTranslateX(400);
 		this.getChildren().add(resetBtn);
 		
+		// init board
+		for(int i = 0; i < 9; i++) {
+			for(int j = 0; j < 9; j++)
+				board[i][j] = null;
+		}
+		
 		//current_player = 1;
-		game = new GameLogic(this.board);
+		game = new GameLogic(this.board, this.menu);
 
 		//game.setPlayer(current_player);
 		Polygon hexagon = new Polygon();
@@ -185,6 +191,79 @@ class AbaloneBoard extends Pane {
 		}
 	}
 	
+	private void case2Players(int player, int i, int j) {
+		if (player == 1 && (i == 6 || i == 7 || i == 8)) {
+			if (i == 6 && (j == 0 || j == 1 || j == 5 || j == 6))
+				board[i][j].setPlayer(-1);
+			else {
+				board[i][j].setPlayer(player);
+			}
+		}
+		else if (player == 2 && (i == 0 || i == 1 || i == 2)) {
+			if (i == 2 && (j == 0 || j == 1 || j == 5 || j == 6))
+				board[i][j].setPlayer(-1);
+			else {
+				board[i][j].setPlayer(player);
+			}
+		}
+	}
+	
+	private void case3Players(int player, int i, int j) {
+		if (player == 1 && (i == 0 || i == 1))
+			board[i][j].setPlayer(player);
+		else if (player == 2 && i >= 3) {
+			if (i == 3 && j == 7 ||
+				i != 3 && (j == getLineLength(board[i]) || j == getLineLength(board[i]) - 1))
+				board[i][j].setPlayer(player);
+		}
+		else if (player == 3 && i >= 3) {
+			if (i == 3 && j == 0 || i != 3 && (j == 0 || j == 1))
+				board[i][j].setPlayer(player);
+		}
+	}
+	
+	private void case4Players(int player, int i, int j) {
+		if (player == 1 && (i == 0 || i == 1)) {
+			if (j < 4)
+				board[i][j].setPlayer(player);
+		}
+		else if (player == 2 && i >= 1 && i <= 5) {
+			if ((i == 1 || i == 5) && j == getLineLength(board[i]) ||
+				i != 1 && i != 5 && (j == getLineLength(board[i]) || j == getLineLength(board[i]) - 1))
+				board[i][j].setPlayer(player);
+		}
+		else if (player == 3 && (i == 7 || i == 8)) {
+			if (i == 7 && j > 1 || i == 8 && j > 0)
+				board[i][j].setPlayer(player);
+		}
+		else if (player == 4 && i >= 3 && i <= 7) {
+			if ((i == 3 || i == 7) && j == 0 || i != 3 && i != 7 && (j == 0 || j == 1))
+				board[i][j].setPlayer(player);
+		}
+	}
+	
+	private void case5Players(int player, int i, int j) {
+		if (player == 1 && (i == 0 || i == 1)) {
+			if (i == 0 && j > 0 && j < getLineLength(board[i])
+				|| i == 1 && j > 1 && j < getLineLength(board[i]) - 1)
+				board[i][j].setPlayer(player);
+		}
+		else if (player == 2 && i >= 2 && i <= 4) {
+			if (i == 2 && j == getLineLength(board[i]) ||
+				i != 2 && (j == getLineLength(board[i]) || j == getLineLength(board[i]) - 1))
+				board[i][j].setPlayer(player);
+		}
+		else if (player == 3 && (i == 7 || i == 8)) {
+			if (i == 8 && j > 0 && j < getLineLength(board[i])
+				|| i == 7 && j > 1 && j < getLineLength(board[i]) - 1)
+				board[i][j].setPlayer(player);
+		}
+		else if (player == 4 && i >= 3 && i <= 7) {
+			if ((i == 3 || i == 7) && j == 0 || i != 3 && i != 7 && (j == 0 || j == 1))
+				board[i][j].setPlayer(player);
+		}
+	}
+	
 	private void placeAllPieces() {
 		int size_line;
 		int count;
@@ -194,26 +273,28 @@ class AbaloneBoard extends Pane {
 			count = 1;
 			for(int i = 0; i < 9; i++) {
 				for(int j = 0; j < size_line; j++) {
-					if (player == 1 && (i == 6 || i == 7 || i == 8)) {
-						if (i == 6 && (j == 0 || j == 1 || j == 5 || j == 6))
-							board[i][j].setPlayer(-1);
-						else {
-							board[i][j].setPlayer(player);
-						}
-					}
-					else if (player == 2 && (i == 0 || i == 1 || i == 2)) {
-						if (i == 2 && (j == 0 || j == 1 || j == 5 || j == 6))
-							board[i][j].setPlayer(-1);
-						else {
-							board[i][j].setPlayer(player);
-						}
-					}
+					if (this.nbPlayers == 2)
+						case2Players(player, i, j);
+					else if (this.nbPlayers == 3)
+						case3Players(player, i, j);
+					else if (this.nbPlayers == 4)
+						case4Players(player, i, j);
+					else if (this.nbPlayers == 5)
+						case5Players(player, i, j);
 				}
 				if (size_line == 9)
 					count *= -1;
 				size_line += count;
 			}
 		}
+	}
+	
+	private int getLineLength(Cell[] line) {
+		for (int i = line.length - 1; i >= 0; i--) {
+			if (line[i] != null)
+				return i;
+		}
+		return 0;
 	}
 	
 	private void setSize() {
