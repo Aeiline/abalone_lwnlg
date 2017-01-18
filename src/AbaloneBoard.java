@@ -98,6 +98,7 @@ class AbaloneBoard extends Pane {
 		
 		//current_player = 1;
 		game = new GameLogic(this.board, this.menu);
+		game.setNbPlayer(nbPlayers);
 
 		//game.setPlayer(current_player);
 		Polygon hexagon = new Polygon();
