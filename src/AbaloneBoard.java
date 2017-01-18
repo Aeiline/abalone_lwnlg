@@ -369,8 +369,8 @@ class AbaloneBoard extends Pane {
 		this.playersSelection();
 	}
 	
-	/*public void endGame(int winner) {
-		menu.showMsgEnd(winner);
-	}*/
+	public void cancel() {
+		//this.game.cancel();
+	}
 	
 }

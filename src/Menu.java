@@ -60,6 +60,7 @@ class Menu extends GridPane {
 	}
 	
 	public void updateMenu(int currentPlayer, int[] piecesLeft, int[] piecesPushed){
+		System.out.println("\tUPDATE MENU !:" + currentPlayer);
 		this.currentPlayerTxt.setText("\tPlayer" + currentPlayer);
 	    this.currentPlayerTxt.setFill(colors[currentPlayer-1]);
 		for (int i = 0; i < nbplayer; i++) {

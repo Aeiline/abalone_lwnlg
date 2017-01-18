@@ -16,8 +16,8 @@ class CustomControl extends Control {
 			// overridden handle method
 			@Override
 			public void handle(KeyEvent event) {
-				//if(event.getCode() == KeyCode.SPACE)
-				//xoboard.resetGame();
+				if (event.getCode() == KeyCode.ESCAPE)
+					xoboard.cancel();
 			}
 		});
 	}
