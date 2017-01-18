@@ -34,7 +34,7 @@ class GameLogic {
 	public void click_control(Cell clickedcell)
 	{
 
-		if (clickedcell.getPlayer() == player_turn)
+		if (clickedcell.getPlayer() == player_turn && !clickedcell.getSelected())
 		{	
 			last_pos = clickedcell; 
 			if(case_number < 3)
@@ -111,7 +111,7 @@ class GameLogic {
 	public void click_occured(Cell clickedcell)
 	{	
 
-		if (clickedcell.getPlayer() == -1 && case_number > 0)
+		if (case_number > 0)
 		{
 
 			last_pos = clickedcell; 
@@ -186,7 +186,8 @@ class GameLogic {
 					if (last_pos.getBoardPos()[1] == tmp_cell.others[inc].getBoardPos()[1])
 						return inc;
 				}
-				tmp_cell = tmp_cell.others[inc];
+				if (tmp_cell != null)
+					tmp_cell = tmp_cell.others[inc];
 				}
 			}
 		return -10;
@@ -268,16 +269,22 @@ class GameLogic {
 				for (int i = 0; i < case_number; i += 1)
 				{
 					boolean check = false;
-					if (case_to_move[i].getPlayer() != -1 && !case_to_move[i].getSelected())
+					if (case_to_move[i].others[direction].getPlayer() != -1 /*&& !case_to_move[i].getSelected()*/)
 					{
 						System.out.println(" entry " + case_to_move[i].getBoardPos()[0] + " ; " + case_to_move[i].getBoardPos()[1]);
 						for (inc = 0; inc < 3 && !check; inc += 1)
 						{
 							if (player_save[inc][0] == -2)
 							{
-								player_save[inc][0] = case_to_move[i].getPlayer();
-								player_save[inc][1] = case_to_move[i].others[direction].getBoardPos()[0];
-								player_save[inc][2] = case_to_move[i].others[direction].getBoardPos()[1];
+								player_save[inc][0] = case_to_move[i].others[direction].getPlayer();
+								tmp_int = 0;
+								if (direction > 2 )
+									tmp_int = direction - 3;
+								else if (direction < 3)
+									tmp_int = direction + 3;
+								System.out.print("/" +case_to_move[i].others[direction].others[direction].getBoardPos()[0] + "/" + case_to_move[i].others[direction].getBoardPos()[1] );
+								player_save[inc][1] = case_to_move[i].others[direction].others[direction].getBoardPos()[0];
+								player_save[inc][2] = case_to_move[i].others[direction].others[direction].getBoardPos()[1];
 								check = true;
 							}
 						}
@@ -313,11 +320,13 @@ class GameLogic {
 					last_pos.setPlayer(player_turn);
 					finish = true;
 				}
-			}
+			}System.out.println("finish");
 			for (inc = 0; inc < 3 ; inc += 1)
 			{
+				System.out.println("check");
 				if (player_save[inc][0] != -2)
 				{
+					System.out.println("check1");
 					if (this.board[player_save[inc][1]][player_save[inc][2]] != null)
 						this.board[player_save[inc][1]][player_save[inc][2]].setPlayer(player_save[inc][0]);
 					else
