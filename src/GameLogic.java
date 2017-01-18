@@ -111,7 +111,7 @@ class GameLogic {
 	public void click_occured(Cell clickedcell)
 	{	
 
-		if (clickedcell.getPlayer() == -1)
+		if (clickedcell.getPlayer() == -1 && case_number > 0)
 		{
 
 			last_pos = clickedcell; 
