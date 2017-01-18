@@ -2,8 +2,9 @@ class GameLogic {
 	
 	//setselected true : highlight,  false, black
 	
-	public GameLogic(Cell[][] board)
+	public GameLogic(Cell[][] board, Menu menu)
 	{
+		this.menu = menu;
 		nb_player = 2;
 		this.board = board;
 		case_number = 0;
@@ -16,12 +17,18 @@ class GameLogic {
 	{
 		nb_player = play;
 		player_push = null;
-		player_push = new int[nb_player][2];
+		player_push = new int[nb_player];
 		for (int i = 0; i < nb_player ; i += 1)
 		{
-			player_push[i][0] = 0;
-			player_push[i][1] = 16;
+			player_push[i] = 0;
 		}
+		player_left = null;
+		player_left = new int[nb_player];
+		for (int i = 0; i < nb_player ; i += 1)
+		{
+			player_left[i] = 16;
+		}
+
 	}
 	
 	public void click_control(Cell clickedcell)
@@ -306,6 +313,24 @@ class GameLogic {
 					finish = true;
 				}
 			}
+			for (inc = 0; inc < 3 ; inc += 1)
+			{
+				if (player_save[inc][0] != -2)
+				{
+					if (this.board[player_save[inc][1]][player_save[inc][2]] != null)
+						this.board[player_save[inc][1]][player_save[inc][2]].setPlayer(player_save[inc][0]);
+					else
+					{
+						player_push[player_turn-1] += 1;
+						player_push[player_save[inc][0] - 1] -= 1;
+						menu.updateMenu(player_turn, player_left, player_push);
+						
+						
+					}
+				}
+
+
+			}
 				}
 			nextTurn();
 	}
@@ -341,9 +366,11 @@ class GameLogic {
 	{
 		play = player_turn;
 	}
+	private Menu menu;
 	
 	private int[][] player_save;
-	private int[][] player_push;
+	private int[] player_push;
+	private int[] player_left;
 	private Cell[][] board;
 	private Cell[] highlited;
 	
