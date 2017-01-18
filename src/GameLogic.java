@@ -26,7 +26,7 @@ class GameLogic {
 		player_left = new int[nb_player];
 		for (int i = 0; i < nb_player ; i += 1)
 		{
-			player_left[i] = 16;
+			player_left[i] =  14 - (3 * (this.nb_player - 2));
 		}
 
 	}
