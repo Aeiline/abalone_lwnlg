@@ -60,8 +60,7 @@ class Menu extends GridPane {
 	}
 	
 	public void updateMenu(int currentPlayer, int[] piecesLeft, int[] piecesPushed){
-		System.out.println("\tUPDATE MENU !:" + currentPlayer);
-		this.currentPlayerTxt.setText("\tPlayer" + currentPlayer);
+		this.currentPlayerTxt.setText("\tPlayer" + currentPlayer + "\n");
 	    this.currentPlayerTxt.setFill(colors[currentPlayer-1]);
 		for (int i = 0; i < nbplayer; i++) {
 			piecesLeftTxt[i].setText("Player" + (i + 1) + ":\t\t" + piecesLeft[i] + "/" + totalpieces + "\tmarbles");
@@ -69,6 +68,12 @@ class Menu extends GridPane {
 		}
 	}
 
+	public void nextPlayer(int currentPlayer){
+		System.out.println("\tUPDATE PLAYER !:" + currentPlayer);
+		this.currentPlayerTxt.setText("\tPlayer" + currentPlayer);
+	    this.currentPlayerTxt.setFill(colors[currentPlayer-1]);
+	}
+	
 	public void showMsgEnd(int winner) {
 		this.getChildren().clear();
 		Text endMsg = new Text("Winner is Player " + winner + "\t");
