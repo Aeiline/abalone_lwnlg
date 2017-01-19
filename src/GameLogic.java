@@ -175,18 +175,23 @@ class GameLogic {
 		Cell tmp_cell;
 		int hist;
 		int i = 0;
+		saut = 0;
+		int tmp = 0;
+
 			for (inc = 0; inc < 6; inc += 1)
 			{
 				hist = inc;
-				tmp_cell = case_to_move[i];
-				for (int tmp = 0; tmp < case_number; tmp += 1)
+				tmp_cell = case_to_move[0];
+				for (tmp = 0; tmp < case_number; tmp += 1)
 				{
 					
 			
 				if (tmp_cell != null && tmp_cell.others[inc] != null && last_pos.getBoardPos()[0] == tmp_cell.others[inc].getBoardPos()[0])
 				{
 					if (last_pos.getBoardPos()[1] == tmp_cell.others[inc].getBoardPos()[1])
+					{			
 						return inc;
+					}
 				}
 				if (tmp_cell != null)
 					tmp_cell = tmp_cell.others[inc];
@@ -241,11 +246,43 @@ class GameLogic {
 		}
 	}*/
 	
+	private boolean authorized(int direction)
+	{
+		int inc= 0;
+		Cell tmp_cell; 
+		int tmp = -3;
+		int count = 0;
+		
+		tmp_cell = case_to_move[0];
+		while (tmp_cell != null && tmp_cell.getPlayer() == player_turn)
+		{
+			tmp_cell = tmp_cell.others[direction];
+		}
+		if (tmp_cell == null)
+			return true;
+		else
+		{
+			while (tmp_cell != null && (tmp_cell.getPlayer() == tmp || tmp == -3))
+			{
+				count += 1;
+				tmp = tmp_cell.getPlayer();
+				tmp_cell = tmp_cell.others[direction];
+			}
+			if (tmp == -1)
+				return true;
+			else if( count < case_number && (tmp_cell == null || tmp_cell.getPlayer() == -1))
+				return true;
+			else
+				return false;
+		}
+	}
+	
 	private boolean move_case()
 	{
 	
 		Cell tmp = null;
 		boolean finish = false;
+		int saut;
 		int direction = find_direction();
 		player_save = null;
 		player_save = new int[3][3];
@@ -261,7 +298,7 @@ class GameLogic {
 			player_save[inc][1] = -1;
 			player_save[inc][2] = -1;
 		}
-			if (last_pos.getHighlighted())
+			if (last_pos.getHighlighted() && authorized(direction))
 				{
 				coordx = case_to_move[0].getBoardPos()[0];
 				coordy = case_to_move[0].getBoardPos()[1];
@@ -387,6 +424,7 @@ class GameLogic {
 		play = player_turn;
 	}
 	private Menu menu;
+	private int saut;
 	
 	private int[][] player_save;
 	private int[] player_push;
